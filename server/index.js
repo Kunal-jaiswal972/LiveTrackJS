@@ -4,6 +4,8 @@ import http from "http";
 import { Server } from "socket.io";
 import * as userManager from "./utils/userManager.js";
 import config from "./config.js";
+import morgan from "morgan";
+import apiRoutes from "./routes/api.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -13,6 +15,10 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
+
+
+app.use(morgan("dev"));
+app.use("/v1/api", apiRoutes)
 
 const validApiKeys = new Set([
   "abc123-def456-ghi789-jkl012",
