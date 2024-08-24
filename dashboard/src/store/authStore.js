@@ -6,8 +6,6 @@ const API_URL =
     ? "http://localhost:3000"
     : import.meta.env.VITE_SERVER_URL) + "/api/v1";
 
-console.log(API_URL);
-
 axios.defaults.withCredentials = true;
 
 export const useAuthStore = create((set) => ({

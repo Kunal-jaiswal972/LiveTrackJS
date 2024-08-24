@@ -7,10 +7,9 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 
 import { connectDB } from "./db/mongoDB.js";
+import router from "./routes/router.js";
 import * as userManager from "./utils/userManager.js";
-
-import apiRoutes from "./routes/api.route.js";
-import authRoutes from "./routes/auth.route.js";
+import { validateApiKeyMiddleware } from "./middleware/validateApiKeyMiddleware.js";
 
 dotenv.config();
 const port = process.env.PORT || 3000;
@@ -33,23 +32,9 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
-
-app.use("/api/v1/general", apiRoutes);
-app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1", router);
 
 io.use(validateApiKeyMiddleware);
-
-io.use((socket, next) => {
-  const apiKey = socket.handshake.auth.token;
-
-  if (validApiKeys.has(apiKey)) {
-    console.log("Valid API Key:", apiKey);
-    return next();
-  } else {
-    console.error("Invalid API Key:", apiKey);
-    return next(new Error("Invalid API key"));
-  }
-});
 
 io.on("connection", (socket) => {
   const host = socket.handshake.query.hostName;
