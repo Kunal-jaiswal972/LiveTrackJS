@@ -3,7 +3,7 @@ import React, { createContext, useContext, useMemo } from "react";
 const LiveTrackContext = createContext();
 
 export const LiveTrackProvider = ({ apiKey, children }) => {
-  const env = import.meta.env.VITE_NODE_ENV;
+  const env = import.meta.env.MODE;
   const serverUrl =
     env === "production"
       ? import.meta.env.VITE_SERVER_URL

@@ -3,7 +3,7 @@ import * as userManager from "../utils/userManager.js";
 
 const router = express.Router();
 
-router.get("/map", (req, res) => {
+router.get("", (req, res) => {
   res.json(userManager.usersBySite);
 });
 

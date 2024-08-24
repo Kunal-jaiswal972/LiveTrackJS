@@ -1,11 +1,19 @@
-// server/index.js
 import express from "express";
 import http from "http";
 import { Server } from "socket.io";
-import * as userManager from "./utils/userManager.js";
-import config from "./config.js";
+import dotenv from "dotenv";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 import morgan from "morgan";
-import apiRoutes from "./routes/api.js";
+
+import { connectDB } from "./db/mongoDB.js";
+import * as userManager from "./utils/userManager.js";
+
+import apiRoutes from "./routes/api.route.js";
+import authRoutes from "./routes/auth.route.js";
+
+dotenv.config();
+const port = process.env.PORT || 3000;
 
 const app = express();
 const server = http.createServer(app);
@@ -16,15 +24,20 @@ const io = new Server(server, {
   },
 });
 
-
 app.use(morgan("dev"));
-app.use("/v1/api", apiRoutes)
+app.use(
+  cors({
+    origin: [process.env.DASHBOARD_CLIENT_URL, "http://localhost:5174"],
+    credentials: true,
+  })
+);
+app.use(express.json());
+app.use(cookieParser());
 
-const validApiKeys = new Set([
-  "abc123-def456-ghi789-jkl012",
-  "mno345-pqr678-stu901-vwx234",
-  "yz012-abc345-def678-ghi901",
-]);
+app.use("/api/v1/general", apiRoutes);
+app.use("/api/v1/auth", authRoutes);
+
+io.use(validateApiKeyMiddleware);
 
 io.use((socket, next) => {
   const apiKey = socket.handshake.auth.token;
@@ -49,15 +62,17 @@ io.on("connection", (socket) => {
 
   userManager.addUser(host);
   socket.join(host);
-
   io.to(host).emit("liveUsers", userManager.getUserCount(host));
+  console.log(`Site: ${host}, users: ${userManager.getUserCount(host)}`);
 
   socket.on("disconnect", () => {
     userManager.removeUser(host);
     io.to(host).emit("liveUsers", userManager.getUserCount(host));
+    console.log(`Site: ${host}, users: ${userManager.getUserCount(host)}`);
   });
 });
 
-server.listen(config.port, () => {
-  console.log(`Server is running on port ${config.port}`);
+server.listen(port, () => {
+  connectDB();
+  console.log(`Server is running on port ${port}`);
 });
