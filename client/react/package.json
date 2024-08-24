@@ -1,6 +1,6 @@
 {
   "name": "livetrack-react",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A React client package for tracking online users",
   "type": "module",
   "main": "dist/index.umd.js",
@@ -19,8 +19,8 @@
     "access": "public"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "cross-env VITE_NODE_ENV=development vite",
+    "build": "cross-env VITE_NODE_ENV=production vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "prepare": "npm run build"
@@ -37,6 +37,7 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
     "eslint": "^9.9.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",

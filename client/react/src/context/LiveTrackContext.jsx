@@ -3,7 +3,12 @@ import React, { createContext, useContext, useMemo } from "react";
 const LiveTrackContext = createContext();
 
 export const LiveTrackProvider = ({ apiKey, children }) => {
-  const serverUrl = import.meta.env.VITE_SERVER_URL;
+  const env = import.meta.env.VITE_NODE_ENV;
+  const serverUrl =
+    env === "production"
+      ? import.meta.env.VITE_SERVER_URL
+      : "http://localhost:3000";
+
   const value = useMemo(() => ({ serverUrl, apiKey }), [serverUrl, apiKey]);
 
   return (
