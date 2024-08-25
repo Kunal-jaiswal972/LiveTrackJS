@@ -1,21 +1,41 @@
-export const usersBySite = {};
+import { redisClient } from "../db/redis.js";
 
-export const addUser = (siteId) => {
-  if (!usersBySite[siteId]) {
-    usersBySite[siteId] = 0;
+class UserManager {
+  constructor(redisClient) {
+    this.redis = redisClient;
   }
-  usersBySite[siteId]++;
-};
 
-export const removeUser = (siteId) => {
-  if (usersBySite[siteId]) {
-    usersBySite[siteId]--;
-    if (usersBySite[siteId] === 0) {
-      delete usersBySite[siteId];
+  // Generates the key based on the type, host, and apiKey
+  getKey(keyType, host, apiKey) {
+    switch (keyType) {
+      case "live_users":
+        return `live_users:${host}:${apiKey}`;
+      default:
+        throw new Error(`Unknown key type: ${keyType}`);
     }
   }
-};
 
-export const getUserCount = (siteId) => {
-  return usersBySite[siteId] || 0;
-};
+  async addUser(host, apiKey) {
+    const key = this.getKey("live_users", host, apiKey);
+    await this.redis.incr(key);
+  }
+
+  async removeUser(host, apiKey) {
+    const key = this.getKey("live_users", host, apiKey);
+    const currentCount = await this.redis.get(key);
+
+    if (parseInt(currentCount) > 0) {
+      await this.redis.decr(key);
+    } else {
+      await this.redis.set(key, 0); // Ensure the count does not go negative
+    }
+  }
+
+  async getUserCount(host, apiKey) {
+    const key = this.getKey("live_users", host, apiKey);
+    const count = await this.redis.get(key);
+    return parseInt(count) || 0;
+  }
+}
+
+export const userManager = new UserManager(redisClient);

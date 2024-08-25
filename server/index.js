@@ -7,8 +7,10 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 
 import { connectDB } from "./db/mongoDB.js";
+import { redisClient } from "./db/redis.js";
+
 import router from "./routes/router.js";
-import * as userManager from "./utils/userManager.js";
+import { userManager } from "./utils/userManager.js";
 import { validateApiKeyMiddleware } from "./middleware/validateApiKeyMiddleware.js";
 
 dotenv.config();
@@ -36,8 +38,9 @@ app.use("/api/v1", router);
 
 io.use(validateApiKeyMiddleware);
 
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
   const host = socket.handshake.query.hostName;
+  const apiKey = socket.handshake.auth.token;
 
   if (!host) {
     console.error("No hostName provided");
@@ -45,15 +48,18 @@ io.on("connection", (socket) => {
     return;
   }
 
-  userManager.addUser(host);
+  await userManager.addUser(host, apiKey);
   socket.join(host);
-  io.to(host).emit("liveUsers", userManager.getUserCount(host));
-  console.log(`Site: ${host}, users: ${userManager.getUserCount(host)}`);
 
-  socket.on("disconnect", () => {
-    userManager.removeUser(host);
-    io.to(host).emit("liveUsers", userManager.getUserCount(host));
-    console.log(`Site: ${host}, users: ${userManager.getUserCount(host)}`);
+  const userCount = await userManager.getUserCount(host, apiKey);
+  io.to(host).emit("liveUsers", userCount);
+  console.log(`Site: ${host}, users: ${userCount}`);
+
+  socket.on("disconnect", async () => {
+    await userManager.removeUser(host, apiKey);
+    const updatedUserCount = await userManager.getUserCount(host, apiKey);
+    io.to(host).emit("liveUsers", updatedUserCount);
+    console.log(`Site: ${host}, users: ${updatedUserCount}`);
   });
 });
 
