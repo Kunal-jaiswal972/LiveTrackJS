@@ -1,30 +1,37 @@
-import crypto from "crypto";
-import { User } from "../models/user.model.js";
+import { Site } from "../models/site.model.js";
+import { Activity } from "../models/activity.model.js";
 
-export const generateApiKey = async (req, res) => {
+export const getSitesForUser = async (req, res) => {
   try {
-    const user = await User.findById(req.userId);
-    if (!user) {
-      return res
-        .status(400)
-        .json({ success: false, message: "User not found" });
+    const userId = req.userId;
+    const sites = await Site.find({ userId }).select([
+      "-userId",
+      "-activities",
+    ]);
+
+    if (!sites.length) {
+      return res.status(200).json({ success: true, sites: [] });
     }
 
-    // Check if the user already has an API key
-    if (user.apiKey) {
-      return res
-        .status(200)
-        .json({ success: true, message: "API key already generated!!" });
-    }
-
-    // Generate a new API key
-    const newApiKey = crypto.randomBytes(20).toString("hex");
-    user.apiKey = newApiKey;
-    await user.save();
-
-    res.status(200).json({ success: true, apiKey: newApiKey });
+    res.status(200).json({ success: true, sites });
   } catch (error) {
-    console.log("Error in generateApiKey", error);
-    res.status(400).json({ success: false, message: error.message });
+    console.error("Error fetching sites for user:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+export const getActivitiesForSite = async (req, res) => {
+  try {
+    const { siteId } = req.params;
+    const activities = await Activity.find({ site: siteId });
+
+    if (!activities.length) {
+      return res.status(200).json({ success: true, activities: [] });
+    }
+
+    res.status(200).json({ success: true, activities });
+  } catch (error) {
+    console.error("Error fetching activities for site:", error);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };

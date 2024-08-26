@@ -8,8 +8,7 @@ function App() {
         <h1 className="text-2xl font-bold mb-4">
           Welcome to the Online Users Tracker
         </h1>
-        <div className="flex flex-col items-center space-y-4 font-medium text-xs text-gray-500">
-          <LiveUsersWidget />
+        <div className="flex flex-col items-center gap-2 font-medium text-xs text-gray-500">
           <LiveUsersWidget />
         </div>
       </div>

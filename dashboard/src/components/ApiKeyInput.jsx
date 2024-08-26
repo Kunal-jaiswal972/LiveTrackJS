@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useAuthStore } from "../store/authStore";
 import toast from "react-hot-toast";
 
-const GenerateApiKey = () => {
+const ApiKeyInput = () => {
   const { user } = useAuthStore();
   const [copied, setCopied] = useState(false);
 
@@ -49,4 +49,4 @@ const GenerateApiKey = () => {
   );
 };
 
-export default GenerateApiKey;
+export default ApiKeyInput;

@@ -1,28 +1,40 @@
 import { create } from "zustand";
-import axios from "axios";
-
-const API_URL =
-  (import.meta.env.MODE === "development"
-    ? "http://localhost:3000"
-    : import.meta.env.VITE_SERVER_URL) + "/api/v1";
-
-axios.defaults.withCredentials = true;
+import {axiosInstance} from "@/lib/axiosInstance"
 
 export const useUserStore = create((set) => ({
-  apiKey: undefined,
+  sites: [],
+  activity: [],
   error: null,
   isLoading: false,
 
-  generateApiKey: async () => {
+  getSites: async () => {
     set({ isLoading: true, error: null });
     try {
-      const response = await axios.get(`${API_URL}/user/generate-api-key`);
+      const response = await axiosInstance.get("/user/sites");
       set({
-        apiKey: response.data.apiKey,
+        sites: response.data.sites,
       });
     } catch (error) {
       set({
-        error: error.response.data.message || "Error generating API key",
+        error: error.response?.data?.message || "Error fetching sites",
+      });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  getActivity: async (siteId) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axiosInstance.get(
+        "/user/sites/${siteId}/activities"
+      );
+      set({
+        activity: response.data.activities,
+      });
+    } catch (error) {
+      set({
+        error: error.response?.data?.message || "Error fetching activities",
       });
     } finally {
       set({ isLoading: false });

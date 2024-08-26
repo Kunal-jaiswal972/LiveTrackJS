@@ -1,11 +1,11 @@
 import { userManager } from "../utils/userManager.js";
 
 export const handleConnection = async (socket, io) => {
-  const host = socket.handshake.query.hostName;
+  const host = socket.handshake.query.host;
   const userId = socket.userId;
 
   if (!host || !userId) {
-    console.error("No hostName or User ID provided");
+    console.error("No host or User ID provided", { host, userId });
     socket.disconnect(true);
     return;
   }
@@ -19,7 +19,7 @@ export const handleConnection = async (socket, io) => {
 };
 
 export const handleDisconnection = async (socket, io) => {
-  const host = socket.handshake.query.hostName;
+  const host = socket.handshake.query.host;
   const userId = socket.userId;
 
   await userManager.removeUser(host, userId);

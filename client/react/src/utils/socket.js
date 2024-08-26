@@ -2,10 +2,10 @@ import { io } from "socket.io-client";
 
 let socketInstance = null;
 
-const createSocket = (serverUrl, apiKey, hostName) => {
+const createSocket = (serverUrl, apiKey, host) => {
   if (!socketInstance) {
     socketInstance = io(serverUrl, {
-      query: { hostName },
+      query: { host },
       transports: ["websocket"],
       auth: {
         token: apiKey,
