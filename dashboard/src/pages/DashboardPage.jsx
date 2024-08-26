@@ -58,7 +58,17 @@ const DashboardPage = () => {
           </p>
         </motion.div>
 
-        <GenerateApiKey />
+        <motion.div
+          className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          <p className="text-xl font-semibold text-green-400 mb-3">
+            Your API Key
+          </p>
+          <GenerateApiKey />
+        </motion.div>
       </div>
 
       <motion.div

@@ -5,36 +5,74 @@ class UserManager {
     this.redis = redisClient;
   }
 
-  // Generates the key based on the type, host, and apiKey
-  getKey(keyType, host, apiKey) {
+  getKey(keyType, host, apiKeyUserId, params = {}) {
+    let key;
     switch (keyType) {
       case "live_users":
-        return `live_users:${host}:${apiKey}`;
+        key = `live_users:${host}:${apiKeyUserId}`;
+        break;
+      case "total_users":
+        const date = params.date || this.getDate();
+        key = `total_users:${host}:${apiKeyUserId}:${date}`;
+        break;
+      case "peak_users":
+        const peakDate = params.date || this.getDate();
+        key = `peak_users:${host}:${apiKeyUserId}:${peakDate}`;
+        break;
       default:
         throw new Error(`Unknown key type: ${keyType}`);
     }
+    return key;
   }
 
-  async addUser(host, apiKey) {
-    const key = this.getKey("live_users", host, apiKey);
-    await this.redis.incr(key);
+  getDate() {
+    const today = new Date();
+    return today.toISOString().split("T")[0];
   }
 
-  async removeUser(host, apiKey) {
-    const key = this.getKey("live_users", host, apiKey);
-    const currentCount = await this.redis.get(key);
+  async addUser(host, apiKeyUserId) {
+    const liveUserKey = this.getKey("live_users", host, apiKeyUserId);
+    const totalUserKey = this.getKey("total_users", host, apiKeyUserId, {
+      date: this.getDate(),
+    });
+    const peakUserKey = this.getKey("peak_users", host, apiKeyUserId, {
+      date: this.getDate(),
+    });
 
-    if (parseInt(currentCount) > 0) {
-      await this.redis.decr(key);
-    } else {
-      await this.redis.set(key, 0); // Ensure the count does not go negative
+    await this.redis.incr(liveUserKey);
+    await this.redis.incr(totalUserKey);
+
+    const currentLiveCount = await this.redis.get(liveUserKey);
+    const currentPeakCount = await this.redis.get(peakUserKey);
+
+    if (parseInt(currentLiveCount) > parseInt(currentPeakCount || 0)) {
+      await this.redis.set(peakUserKey, currentLiveCount);
     }
   }
 
-  async getUserCount(host, apiKey) {
-    const key = this.getKey("live_users", host, apiKey);
-    const count = await this.redis.get(key);
+  async removeUser(host, apiKeyUserId) {
+    const liveUserKey = this.getKey("live_users", host, apiKeyUserId);
+    const currentCount = await this.redis.get(liveUserKey);
+
+    if (parseInt(currentCount) > 0) {
+      await this.redis.decr(liveUserKey);
+    } else {
+      await this.redis.set(liveUserKey, 0);
+    }
+  }
+
+  async getUserCount(host, apiKeyUserId) {
+    const liveUserKey = this.getKey("live_users", host, apiKeyUserId);
+    const count = await this.redis.get(liveUserKey);
     return parseInt(count) || 0;
+  }
+
+  async getPeakUserCount(host, apiKeyUserId) {
+    const peakUserKey = this.getKey("peak_users", host, apiKeyUserId, {
+      date: this.getDate(),
+    });
+    const peakCount = await this.redis.get(peakUserKey);
+    return parseInt(peakCount) || 0;
   }
 }
 
