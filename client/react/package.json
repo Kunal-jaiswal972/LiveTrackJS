@@ -1,6 +1,6 @@
 {
   "name": "livetrack-react",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "A React client package for tracking online users",
   "type": "module",
   "main": "dist/index.umd.js",
@@ -63,5 +63,5 @@
     "type": "git",
     "url": "https://github.com/Kunal-jaiswal972"
   },
-  "homepage": "https://github.com/Kunal-jaiswal972#readme"
+  "homepage": "https://github.com/Kunal-jaiswal972/LiveTrackJS/#readme"
 }
