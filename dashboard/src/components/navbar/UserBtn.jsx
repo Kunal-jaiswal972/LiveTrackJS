@@ -1,4 +1,5 @@
 import { LayoutGrid, LogOut, User } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -16,9 +17,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Link } from "react-router-dom";
+import { useAuthStore } from "@/store/authStore";
 
 export const UserBtn = () => {
+  const { user, logout } = useAuthStore();
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <DropdownMenu>
       <TooltipProvider disableHoverableContent>
@@ -31,7 +38,9 @@ export const UserBtn = () => {
               >
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="#" alt="Avatar" />
-                  <AvatarFallback className="bg-transparent">JD</AvatarFallback>
+                  <AvatarFallback className="bg-transparent">
+                    {user?.name.slice(0, 2).toUpperCase()}
+                  </AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
@@ -43,9 +52,9 @@ export const UserBtn = () => {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">John Doe</p>
+            <p className="text-sm font-medium leading-none">{user?.name}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              johndoe@example.com
+              {user?.email}
             </p>
           </div>
         </DropdownMenuLabel>
@@ -65,9 +74,12 @@ export const UserBtn = () => {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="hover:cursor-pointer" onClick={() => {}}>
+        <DropdownMenuItem
+          className="hover:cursor-pointer"
+          onClick={handleLogout}
+        >
           <LogOut className="w-4 h-4 mr-3 text-muted-foreground" />
-          Sign out
+          Sign Out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

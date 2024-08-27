@@ -70,11 +70,9 @@ export function DashBoardLineChart() {
             accessibilityLayer
             data={chartData}
             margin={{
-              left: 12,
-              right: 12,
+              left: 8,
+              right: 8,
             }}
-            width={1100}
-            height={300}
           >
             <ChartLegend content={<ChartLegendContent />} />
             <CartesianGrid vertical={false} />

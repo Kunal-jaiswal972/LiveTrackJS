@@ -41,7 +41,7 @@ export const SideBar = () => {
                   : "translate-x-0 opacity-100"
               )}
             >
-              Brand
+              LiveTrack
             </h1>
           </Link>
         </Button>

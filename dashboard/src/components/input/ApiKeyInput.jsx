@@ -21,7 +21,7 @@ const ApiKeyInput = () => {
 
   return (
     <motion.div
-      className="relative"
+      className="relative llll"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.8 }}
@@ -36,7 +36,7 @@ const ApiKeyInput = () => {
       <motion.button
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.98 }}
-        className="absolute inset-y-0 right-0 text-white flex items-center p-2 pr-2 rounded-lg shadow-lg hover:from-green-600 hover:to-emerald-700 focus:outline-none transition duration-200"
+        className="absolute inset-y-0 right-0 bottom-6 text-white flex items-center p-2 pr-2 rounded-lg shadow-lg hover:from-green-600 hover:to-emerald-700 focus:outline-none transition duration-200"
         type="button"
         onClick={handleCopy}
       >

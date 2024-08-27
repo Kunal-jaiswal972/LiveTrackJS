@@ -7,18 +7,18 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import { ProtectedRoute } from "@/layouts/ProtectedRoute";
 import { RedirectAuthenticatedUser } from "@/layouts/RedirectAuthenticatedUser";
 
-import Layout from "@/layouts/Layout";
+import PublicLayout from "@/layouts/PublicLayout";
 import { useAuthStore } from "@/store/authStore";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 
 import SignUpPage from "@/pages/SignUpPage";
 import LoginPage from "@/pages/LoginPage";
 import EmailVerificationPage from "@/pages/EmailVerificationPage";
-import DashboardPage from "@/pages/DashboardPage";
 import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
 import ResetPasswordPage from "@/pages/ResetPasswordPage";
-import Test from "@/pages/Test";
-import PublicLayout from "@/layouts/PublicLayout";
+import DashboardPage from "@/pages/DashboardPage";
+import ApiKeyPage from "@/pages/ApiKeyPage";
+import AccountPage from "@/pages/AccountPage";
 
 function App() {
   const { isCheckingAuth, checkAuth } = useAuthStore();
@@ -74,9 +74,9 @@ function App() {
         </Route>
 
         <Route path="/" element={<ProtectedRoute />}>
-          {/* <Route index element={<DashboardPage />} /> */}
-          <Route index element={<Test />} />
-          <Route path="ll" element={<h1>kunal</h1>} />
+          <Route index element={<DashboardPage />} />
+          <Route path="keys" element={<ApiKeyPage />} />
+          <Route path="account" element={<AccountPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

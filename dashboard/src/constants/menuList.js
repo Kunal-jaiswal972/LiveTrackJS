@@ -1,11 +1,4 @@
-import {
-  Tag,
-  Users,
-  Settings,
-  Bookmark,
-  SquarePen,
-  LayoutGrid,
-} from "lucide-react";
+import { Settings, ChartPie, LayoutGrid, KeyRound } from "lucide-react";
 
 export function getMenuList(pathname) {
   return [
@@ -13,9 +6,9 @@ export function getMenuList(pathname) {
       groupLabel: "",
       menus: [
         {
-          href: "/dashboard",
+          href: "/",
           label: "Dashboard",
-          active: pathname.includes("/dashboard"),
+          active: pathname.includes("/"),
           icon: LayoutGrid,
           submenus: [],
         },
@@ -24,36 +17,36 @@ export function getMenuList(pathname) {
     {
       groupLabel: "Contents",
       menus: [
+        // {
+        //   href: "",
+        //   label: "Posts",
+        //   active: pathname.includes("/posts"),
+        //   icon: SquarePen,
+        //   submenus: [
+        //     {
+        //       href: "/posts",
+        //       label: "All Posts",
+        //       active: pathname === "/posts",
+        //     },
+        //     {
+        //       href: "/posts/new",
+        //       label: "New Post",
+        //       active: pathname === "/posts/new",
+        //     },
+        //   ],
+        // },
         {
-          href: "",
-          label: "Posts",
-          active: pathname.includes("/posts"),
-          icon: SquarePen,
-          submenus: [
-            {
-              href: "/posts",
-              label: "All Posts",
-              active: pathname === "/posts",
-            },
-            {
-              href: "/posts/new",
-              label: "New Post",
-              active: pathname === "/posts/new",
-            },
-          ],
-        },
-        {
-          href: "/categories",
-          label: "Categories",
-          active: pathname.includes("/categories"),
-          icon: Bookmark,
+          href: "/analytics",
+          label: "Analytics",
+          active: pathname.includes("/analytics"),
+          icon: ChartPie,
           submenus: [],
         },
         {
-          href: "/tags",
-          label: "Tags",
-          active: pathname.includes("/tags"),
-          icon: Tag,
+          href: "/keys",
+          label: "API Keys",
+          active: pathname.includes("/keys"),
+          icon: KeyRound,
           submenus: [],
         },
       ],
@@ -61,13 +54,6 @@ export function getMenuList(pathname) {
     {
       groupLabel: "Settings",
       menus: [
-        {
-          href: "/users",
-          label: "Users",
-          active: pathname.includes("/users"),
-          icon: Users,
-          submenus: [],
-        },
         {
           href: "/account",
           label: "Account",
