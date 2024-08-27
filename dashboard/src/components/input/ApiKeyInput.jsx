@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import Input from "./Input";
-import { Lock, Clipboard, ClipboardCheck } from "lucide-react";
-import { motion } from "framer-motion";
-import { useAuthStore } from "../store/authStore";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
+import { Lock, Clipboard, ClipboardCheck } from "lucide-react";
+
+import Input from "@/components/input/Input";
+import { useAuthStore } from "@/store/authStore";
 
 const ApiKeyInput = () => {
   const { user } = useAuthStore();
@@ -13,7 +14,7 @@ const ApiKeyInput = () => {
     if (user.apiKey) {
       navigator.clipboard.writeText(user.apiKey);
       setCopied(true);
-      toast.success("Copied to clipboard!!")
+      toast.success("Copied to clipboard!!");
       setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
     }
   };

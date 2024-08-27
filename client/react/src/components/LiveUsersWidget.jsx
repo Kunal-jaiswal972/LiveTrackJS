@@ -2,7 +2,7 @@ import useLiveUsers from "../hooks/useLiveUsers";
 import { BadgeCheck } from "lucide-react";
 import { Loader } from "./Loader";
 
-const LiveUsersWidget = () => {
+const LiveUsersWidget = ({ message }) => {
   const { liveUsers, error, loading } = useLiveUsers();
 
   return (
@@ -19,7 +19,9 @@ const LiveUsersWidget = () => {
             <div className="text-lg font-semibold text-black">
               {`${liveUsers} people`}
             </div>
-            <div className="text-gray-500 text-xs"> Viewing this page</div>
+            <div className="text-gray-500 text-xs">
+              {message || "Viewing this page"}
+            </div>
             <div className="flex items-center justify-center gap-1 text-blue-500 text-xs">
               <span>
                 Verified by <b className="font-mono">Live</b>

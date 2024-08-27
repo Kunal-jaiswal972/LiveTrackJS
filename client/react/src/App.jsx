@@ -9,7 +9,7 @@ function App() {
           Welcome to the Online Users Tracker
         </h1>
         <div className="flex flex-col items-center gap-2 font-medium text-xs text-gray-500">
-          <LiveUsersWidget />
+          <LiveUsersWidget/>
         </div>
       </div>
     </LiveTrackProvider>

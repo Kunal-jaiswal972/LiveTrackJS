@@ -2,8 +2,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Lock, Loader } from "lucide-react";
 import { Link } from "react-router-dom";
-import Input from "../components/Input";
-import { useAuthStore } from "../store/authStore";
+
+import Input from "@/components/input/Input";
+import { useAuthStore } from "@/store/authStore";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -72,8 +73,8 @@ const LoginPage = () => {
       </div>
       <div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex justify-center">
         <p className="text-sm text-gray-400">
-          Don't have an account?{" "}
-          <Link to="/signup" className="text-green-400 hover:underline">
+          Don't have an account?
+          <Link to="/signup" className="text-green-400 hover:underline ml-1">
             Sign up
           </Link>
         </p>

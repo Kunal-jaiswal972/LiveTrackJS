@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import { useAuthStore } from "../store/authStore";
-import { formatDate } from "../utils/date";
-import GenerateApiKey from "../components/GenerateApiKey";
+import { useAuthStore } from "@/store/authStore";
+import { formatDate } from "@/lib/date";
+import ApiKeyInput from "@/components/input/ApiKeyInput";
+import { DashBoardLineChart } from "@/components/charts/DashBoardLineChart";
 
 const DashboardPage = () => {
   const { user, logout } = useAuthStore();
@@ -9,19 +10,28 @@ const DashboardPage = () => {
   const handleLogout = () => {
     logout();
   };
+  
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.5 }}
-      className="max-w-md w-full mx-auto mt-10 p-8 bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-xl shadow-2xl border border-gray-800"
+      className="max-w-3xl w-full mx-auto mt-10 p-8 bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-xl shadow-2xl border border-gray-800"
     >
       <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-green-400 to-emerald-600 text-transparent bg-clip-text">
         Dashboard
       </h2>
 
       <div className="space-y-6">
+        <motion.div
+          className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <DashBoardLineChart />
+        </motion.div>
+
         <motion.div
           className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"
           initial={{ opacity: 0, y: 20 }}
@@ -34,6 +44,7 @@ const DashboardPage = () => {
           <p className="text-gray-300">Name: {user.name}</p>
           <p className="text-gray-300">Email: {user.email}</p>
         </motion.div>
+
         <motion.div
           className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"
           initial={{ opacity: 0, y: 20 }}
@@ -67,7 +78,7 @@ const DashboardPage = () => {
           <p className="text-xl font-semibold text-green-400 mb-3">
             Your API Key
           </p>
-          <GenerateApiKey />
+          <ApiKeyInput />
         </motion.div>
       </div>
 
