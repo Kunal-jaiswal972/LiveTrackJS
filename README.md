@@ -16,11 +16,13 @@ npm install livetrack-react
 
 To integrate the live tracking widget into your React app:
 
-1. **Wrap your app with the `LiveTrackProvider` and include the `LiveUsersWidget`:**
+1. **Wrap your app with the `LiveTrackProvider` and include the css file and `LiveUsersWidget` component:**
 
 ```jsx
 import LiveUsersWidget from "./components/LiveUsersWidget";
 import { LiveTrackProvider } from "./context/LiveTrackContext";
+import "livetrack-react/style.css";
+
 
 function App() {
   return (
