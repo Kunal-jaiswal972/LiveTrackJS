@@ -9,7 +9,7 @@ const LoadingSpinner = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowAlert(true);
-    }, 5000);
+    }, 15000);
 
     return () => clearTimeout(timer);
   }, []);

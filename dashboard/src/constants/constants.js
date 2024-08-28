@@ -60,17 +60,17 @@ export function getMenuList(pathname) {
         //   ],
         // },
         {
-          href: "/dashboard/analytics",
-          label: "Analytics",
-          active: pathname.includes("/dashboard/analytics"),
-          icon: ChartPie,
-          submenus: [],
-        },
-        {
           href: "/dashboard/keys",
           label: "API Keys",
           active: pathname.includes("/dashboard/keys"),
           icon: KeyRound,
+          submenus: [],
+        },
+        {
+          href: "/dashboard/analytics",
+          label: "Analytics",
+          active: pathname.includes("/dashboard/analytics"),
+          icon: ChartPie,
           submenus: [],
         },
         {

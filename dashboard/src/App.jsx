@@ -33,7 +33,7 @@ function App() {
   if (isCheckingAuth) return <LoadingSpinner />;
 
   return (
-    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Routes>
         <Route path="/" element={<PublicLayout />}>
           <Route index element={<LandingPage />} />
@@ -77,7 +77,7 @@ function App() {
           <Route index element={<DashboardPage />} />
           <Route path="keys" element={<ApiKeyPage />} />
           <Route path="account" element={<AccountPage />} />
-          <Route path="analytics" element={<AnalyticsPage />} />
+          <Route path="analytics/:id" element={<AnalyticsPage />} />
           <Route path="billings" element={<BillingsPage />} />
         </Route>
 

@@ -27,7 +27,7 @@ export const useUserStore = create((set) => ({
     set({ isLoading: true, error: null });
     try {
       const response = await axiosInstance.get(
-        "/user/sites/${siteId}/activities"
+        `/user/sites/${siteId}/activities`
       );
       set({
         activity: response.data.activities,

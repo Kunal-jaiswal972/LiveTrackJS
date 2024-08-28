@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 import { ContentLayout } from "@/components/ContentLayout";
-import { DashBoardLineChart } from "@/components/charts/DashBoardLineChart";
+import { DashBoardTable } from "@/components/analytics/DashBoardTable";
 
 export default function DashboardPage() {
   return (
@@ -12,7 +12,7 @@ export default function DashboardPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <DashBoardLineChart />
+        <DashBoardTable />
       </motion.div>
     </ContentLayout>
   );
