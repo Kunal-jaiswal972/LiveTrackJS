@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import {axiosInstance} from "@/lib/axiosInstance"
+import { axiosInstance } from "@/lib/axiosInstance";
 
 export const useUserStore = create((set) => ({
   sites: [],
@@ -9,6 +9,7 @@ export const useUserStore = create((set) => ({
 
   getSites: async () => {
     set({ isLoading: true, error: null });
+    // await new Promise((resolve) => setTimeout(resolve, 5000));
     try {
       const response = await axiosInstance.get("/user/sites");
       set({
@@ -22,7 +23,7 @@ export const useUserStore = create((set) => ({
       set({ isLoading: false });
     }
   },
-
+  
   getActivity: async (siteId) => {
     set({ isLoading: true, error: null });
     try {

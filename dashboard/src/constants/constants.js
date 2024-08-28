@@ -32,7 +32,7 @@ export function getMenuList(pathname) {
         {
           href: "/dashboard",
           label: "Dashboard",
-          active: pathname.includes("/dashboard"),
+          active: pathname === ("/dashboard"),
           icon: LayoutGrid,
           submenus: [],
         },

@@ -30,7 +30,7 @@ const LoadingSpinner = () => {
         >
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
-            <AlertTitle>Please Wait a little longer</AlertTitle>
+            <AlertTitle>Please wait a little longer</AlertTitle>
             <AlertDescription>
               Server is hosted on free render plan which may take some time for
               first time loading!!

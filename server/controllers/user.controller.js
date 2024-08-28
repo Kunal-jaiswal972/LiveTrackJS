@@ -23,6 +23,15 @@ export const getSitesForUser = async (req, res) => {
 export const getActivitiesForSite = async (req, res) => {
   try {
     const { siteId } = req.params;
+    const userId = req.userId;
+
+    const site = await Site.findOne({ _id: siteId, userId });
+    if (!site) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Access denied or site not found" });
+    }
+
     const activities = await Activity.find({ site: siteId });
 
     if (!activities.length) {

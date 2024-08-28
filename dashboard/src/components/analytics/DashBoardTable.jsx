@@ -23,7 +23,7 @@ export function DashBoardTable() {
     getSites();
   }, []);
 
-  if (isLoading) return <Loader message="Loading Your sites..."/>;
+  if (isLoading) return <Loader message="Loading Your sites..." />;
   if (error)
     return (
       <Alert variant="destructive">
@@ -33,7 +33,12 @@ export function DashBoardTable() {
     );
 
   return (
-    <div className="space-y-4">
+    <motion.div
+      className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700 space-y-8"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2 }}
+    >
       <Alert variant="success">
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>
@@ -84,6 +89,6 @@ export function DashBoardTable() {
           ))}
         </TableBody>
       </Table>
-    </div>
+    </motion.div>
   );
 }
