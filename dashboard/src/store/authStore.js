@@ -120,7 +120,7 @@ export const useAuthStore = create((set) => ({
     set({ isLoading: true, error: null });
     try {
       const response = await axiosInstance.post(
-        "/auth/reset-password/${token}",
+        `/auth/reset-password/${token}`,
         {
           password,
         }

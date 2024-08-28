@@ -6,7 +6,7 @@ const useLiveUsers = () => {
   const { apiKey, serverUrl } = useLiveTrack();
   const host = window.location.hostname;
 
-  const [liveUsers, setLiveUsers] = useState(0);
+  const [liveUsers, setLiveUsers] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
