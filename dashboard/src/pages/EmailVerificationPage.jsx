@@ -5,11 +5,12 @@ import toast from "react-hot-toast";
 import { useAuthStore } from "@/store/authStore";
 
 const EmailVerificationPage = () => {
+  const { error, isLoading, verifyEmail } = useAuthStore();
+  // might be some bug due to logic of redirectauthenticateduser layout!!!
+
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);
   const navigate = useNavigate();
-
-  const { error, isLoading, verifyEmail } = useAuthStore();
 
   const handleChange = (index, value) => {
     const newCode = [...code];

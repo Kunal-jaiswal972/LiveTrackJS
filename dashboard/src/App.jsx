@@ -19,6 +19,9 @@ import ResetPasswordPage from "@/pages/ResetPasswordPage";
 import DashboardPage from "@/pages/DashboardPage";
 import ApiKeyPage from "@/pages/ApiKeyPage";
 import AccountPage from "@/pages/AccountPage";
+import LandingPage from "@/pages/LandingPage";
+import AnalyticsPage from "@/pages/AnalyticsPage";
+import BillingsPage from "@/pages/BillingPage";
 
 function App() {
   const { isCheckingAuth, checkAuth } = useAuthStore();
@@ -33,11 +36,8 @@ function App() {
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <Routes>
         <Route path="/" element={<PublicLayout />}>
-          {/* <Route index element={
-              <h1>no landing page yet so login is default for now</h1>} /> 
-          */}
+          <Route index element={<LandingPage />} />
           <Route
-            index
             path="login"
             element={
               <RedirectAuthenticatedUser>
@@ -73,10 +73,12 @@ function App() {
           />
         </Route>
 
-        <Route path="/" element={<ProtectedRoute />}>
+        <Route path="/dashboard" element={<ProtectedRoute />}>
           <Route index element={<DashboardPage />} />
           <Route path="keys" element={<ApiKeyPage />} />
           <Route path="account" element={<AccountPage />} />
+          <Route path="analytics" element={<AnalyticsPage />} />
+          <Route path="billings" element={<BillingsPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

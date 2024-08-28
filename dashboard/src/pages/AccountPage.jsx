@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ContentLayout } from "@/components/ContentLayout";
 import { useAuthStore } from "@/store/authStore";
-import { formatDate } from "@/lib/date";
+import { formatDate } from "@/lib/utils";
 
 export default function AccountPage() {
   const { user } = useAuthStore();

@@ -24,13 +24,13 @@ const ApiKeyInput = () => {
       className="relative llll"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.8 }}
+      transition={{ delay: 0.2 }}
     >
       <Input
         icon={Lock}
         type="password"
         placeholder="Your API Key"
-        value={user?.apiKey}
+        value={user.apiKey}
         disabled
       />
       <motion.button
