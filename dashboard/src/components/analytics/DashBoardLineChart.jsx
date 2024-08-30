@@ -52,7 +52,7 @@ export function DashBoardLineChart() {
     );
 
   if (!activity || !Array.isArray(activity) || activity.length === 0) {
-    return <Alert variant="destructive">No data available.</Alert>;
+    return <Alert variant="success">No data available.</Alert>;
   }
 
   return (

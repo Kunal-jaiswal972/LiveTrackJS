@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { AlertCircle, CircleArrowRight } from "lucide-react";
+import { AlertCircle, CircleArrowRight, RefreshCw } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -17,7 +17,7 @@ import { useUserStore } from "@/store/userStore";
 import { formatDate } from "@/lib/utils";
 
 export function DashBoardTable() {
-  const { sites, getSites, isLoading, error } = useUserStore();
+  const { sites, getSites, isLoading, error, handleRefresh } = useUserStore();
 
   useEffect(() => {
     getSites();
@@ -31,6 +31,18 @@ export function DashBoardTable() {
         <AlertTitle>{error}</AlertTitle>
       </Alert>
     );
+
+  if (!sites || !Array.isArray(sites) || sites.length === 0) {
+    return (
+      <Alert variant="success">
+        <RefreshCw
+          className="h-4 w-4 cursor-pointer hover:scale-110"
+          onClick={() => handleRefresh()}
+        />
+        <AlertTitle>No sites being tracked.</AlertTitle>
+      </Alert>
+    );
+  }
 
   return (
     <motion.div

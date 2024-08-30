@@ -16,11 +16,11 @@ npm install livetrack-react
 
 To integrate the live tracking widget into your React app:
 
-1. **Wrap your app with the `LiveTrackProvider` and include the `LiveUsersWidget`:**
+1. **Wrap your app with the `LiveTrackProvider` and include the css file and `LiveUsersWidget` component:**
 
 ```jsx
-import LiveUsersWidget from "./components/LiveUsersWidget";
-import { LiveTrackProvider } from "./context/LiveTrackContext";
+import { LiveTrackProvider, LiveUsersWidget } from "livetrack-react";
+import "livetrack-react/style.css";
 
 function App() {
   return (
@@ -33,16 +33,33 @@ function App() {
 export default App;
 ```
 
-Replace `"your-api-key"` with the API key you generated.
+Replace `"your-api-key"` with the API key provided in dashboard.
 
-2. Now, when users visit your website, you will be able to see live user activity displayed via the `LiveUsersWidget` component.
+2. Now, when users visit your website, they will be able to see live user activity displayed via the `LiveUsersWidget` component.
+   ![Live Track Widget](https://imgur.com/Nceyps1.png)
+
+3. You can also use the "useLiveUsers" hook to make a customizable widget of your choice.
+
+```jsx
+import { useLiveUsers } from "livetrack-react";
+
+export const widget =()=> {
+  return (
+    const {liveUsers, isLoading, error} = useLiveUsers();
+
+    //your custom widget goes here...
+  );
+}
+```
+
+4. You can track the activities on your sites through the [dashboard](https://live-track-js.vercel.app/)
 
 ## Features
 
 - **Real-time User Tracking**: Instantly see how many users are active on your site.
 - **Simple Integration**: Add the widget with just a few lines of code.
-- **Customizable**: Modify the look and feel with CSS to match your site’s design.
+- **Customizable**: Modify thw widget to your design.
 
 ## Github
 
--  Go to [Live Track JS](https://github.com/Kunal-jaiswal972/LiveTrackJS/) to know more.
+- Go to [Live Track JS](https://github.com/Kunal-jaiswal972/LiveTrackJS/) to know more.

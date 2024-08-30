@@ -1,6 +1,6 @@
 {
   "name": "livetrack-react",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A React client package for tracking online users",
   "type": "module",
   "main": "dist/index.umd.js",

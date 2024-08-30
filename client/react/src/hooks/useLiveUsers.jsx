@@ -7,7 +7,7 @@ const useLiveUsers = () => {
   const host = window.location.hostname;
 
   const [liveUsers, setLiveUsers] = useState(1);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -16,12 +16,12 @@ const useLiveUsers = () => {
     const handleError = (err) => {
       console.error("Socket error:", err);
       setError("Error connecting to the server.");
-      setLoading(false);
+      setIsLoading(false);
     };
 
     const handleLiveUsers = (count) => {
       setLiveUsers(count);
-      setLoading(false);
+      setIsLoading(false);
     };
 
     socket.on("connect_error", handleError);
@@ -32,11 +32,11 @@ const useLiveUsers = () => {
       socket.off("connect_error", handleError);
       socket.off("error", handleError);
       socket.off("liveUsers", handleLiveUsers);
-      setLoading(false);
+      setIsLoading(false);
     };
   }, [serverUrl, host, apiKey]);
 
-  return { liveUsers, loading, error };
+  return { liveUsers, isLoading, error };
 };
 
 export default useLiveUsers;

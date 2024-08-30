@@ -23,7 +23,7 @@ export const useUserStore = create((set) => ({
       set({ isLoading: false });
     }
   },
-  
+
   getActivity: async (siteId) => {
     set({ isLoading: true, error: null });
     try {
@@ -39,6 +39,18 @@ export const useUserStore = create((set) => ({
       });
     } finally {
       set({ isLoading: false });
+    }
+  },
+  // for now only repalce with good solution!!
+  handleRefresh: async () => {
+    try {
+      await axiosInstance.get(`/general/sync`);
+      console.log("Synced data!!");
+      window.location.reload();
+    } catch (error) {
+      set({
+        error: error.response?.data?.message || "Error syncing",
+      });
     }
   },
 }));

@@ -9,7 +9,7 @@ dotenv.config();
 
 const redisClient = new Redis(process.env.REDIS_URL);
 
-(async () => {
+export const syncF = async () => {
   mongoose.set("strictQuery", true);
   await mongoose.connect(process.env.MONGODB_URL);
 
@@ -29,12 +29,16 @@ const redisClient = new Redis(process.env.REDIS_URL);
       const value = await redisClient.get(key);
       const parsedValue = parseInt(value);
 
-      if (!userId || isNaN(parsedValue)) continue;
+      if (!userId || isNaN(parsedValue)) {
+        await redisClient.del(key); // Delete key if data is invalid
+        continue;
+      }
 
       // Validate userId
       const user = await User.findById(userId);
       if (!user) {
         console.warn(`User not found for userId: ${userId}`);
+        await redisClient.del(key); // Delete key if user is not found
         continue; // Skip if user is not found
       }
 
@@ -66,16 +70,45 @@ const redisClient = new Redis(process.env.REDIS_URL);
       if (totalKeys.includes(key)) {
         activity.totalUsers = Math.max(activity.totalUsers, parsedValue);
       }
+
+      // Delete the key after processing
+      await redisClient.del(key);
     }
 
-    // Save all activities and update sites
-    for (const [_, activityData] of activitiesMap.entries()) {
-      const activity = await Activity.create(activityData);
+    // Save or update activities and update sites
+    for (const [activityKey, activityData] of activitiesMap.entries()) {
+      const [host, userId, date] = activityKey.split(":");
 
-      // Update site with the new activity
-      let site = await Site.findById(activityData.site);
-      site.activities.push(activity._id);
-      await site.save();
+      // Get or create site (since we need to use it for activity updates)
+      let site = await Site.findOne({ host, userId });
+
+      if (!site) {
+        // If site doesn't exist, create it (this is a safeguard)
+        site = new Site({ host, userId });
+        await site.save();
+      }
+
+      // Check if activity already exists
+      let activity = await Activity.findOne({ date, site: site._id });
+
+      if (activity) {
+        // Update existing activity
+        activity.peakUsers = Math.max(
+          activity.peakUsers,
+          activityData.peakUsers
+        );
+        activity.totalUsers = activity.totalUsers + activityData.totalUsers;
+        await activity.save();
+      } else {
+        // Create a new activity
+        activity = await Activity.create(activityData);
+      }
+
+      // Update site with the new or updated activity
+      if (!site.activities.includes(activity._id)) {
+        site.activities.push(activity._id);
+        await site.save();
+      }
     }
   } catch (error) {
     console.error(error);
@@ -83,4 +116,4 @@ const redisClient = new Redis(process.env.REDIS_URL);
     redisClient.quit();
     mongoose.connection.close(); // Close MongoDB connection
   }
-})();
+};
