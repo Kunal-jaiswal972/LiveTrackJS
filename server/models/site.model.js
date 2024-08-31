@@ -8,7 +8,6 @@ const siteSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    activities: [{ type: mongoose.Schema.Types.ObjectId, ref: "Activity" }],
   },
   { timestamps: true }
 );

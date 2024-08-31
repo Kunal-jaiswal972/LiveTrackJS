@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { axiosInstance } from "@/lib/axiosInstance";
+import toast from "react-hot-toast";
 
 export const useUserStore = create((set) => ({
   sites: [],
@@ -9,7 +10,6 @@ export const useUserStore = create((set) => ({
 
   getSites: async () => {
     set({ isLoading: true, error: null });
-    // await new Promise((resolve) => setTimeout(resolve, 5000));
     try {
       const response = await axiosInstance.get("/user/sites");
       set({
@@ -41,12 +41,11 @@ export const useUserStore = create((set) => ({
       set({ isLoading: false });
     }
   },
-  // for now only repalce with good solution!!
+  // for now only, replace with good solution!!
   handleRefresh: async () => {
     try {
-      await axiosInstance.get(`/general/sync`);
-      console.log("Synced data!!");
-      window.location.reload();
+      const res = await axiosInstance.get(`/general/sync`);
+      toast.success(res.data.message || "Synced data successfully");
     } catch (error) {
       set({
         error: error.response?.data?.message || "Error syncing",

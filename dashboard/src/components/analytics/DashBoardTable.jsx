@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { AlertCircle, CircleArrowRight, RefreshCw } from "lucide-react";
+import { AlertCircle, CircleArrowRight } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -15,9 +15,10 @@ import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Loader } from "@/components/Loader";
 import { useUserStore } from "@/store/userStore";
 import { formatDate } from "@/lib/utils";
+import RefreshBtn from "@/components/RefreshBtn";
 
 export function DashBoardTable() {
-  const { sites, getSites, isLoading, error, handleRefresh } = useUserStore();
+  const { sites, getSites, isLoading, error } = useUserStore();
 
   useEffect(() => {
     getSites();
@@ -34,13 +35,13 @@ export function DashBoardTable() {
 
   if (!sites || !Array.isArray(sites) || sites.length === 0) {
     return (
-      <Alert variant="success">
-        <RefreshCw
-          className="h-4 w-4 cursor-pointer hover:scale-110"
-          onClick={() => handleRefresh()}
-        />
-        <AlertTitle>No sites being tracked.</AlertTitle>
-      </Alert>
+      <div className="relative">
+        <Alert variant="success">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>No sites being tracked.</AlertTitle>
+        </Alert>
+        <RefreshBtn />
+      </div>
     );
   }
 
@@ -51,12 +52,15 @@ export function DashBoardTable() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
-      <Alert variant="success">
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>
-          These are the sites being tracked by us through your API key!!
-        </AlertTitle>
-      </Alert>
+      <div className="relative">
+        <Alert variant="success">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>
+            These are the sites being tracked by us through your API key!!
+          </AlertTitle>
+        </Alert>
+        <RefreshBtn />
+      </div>
       <Table>
         <TableHeader>
           <TableRow>
