@@ -15,6 +15,8 @@ import {
   handleDisconnection,
 } from "./controllers/socket.controller.js";
 
+// import "./jobs/syncRedisToMongoDB.js";
+
 dotenv.config();
 const port = process.env.PORT || 3000;
 
@@ -34,7 +36,13 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.json());
+app.use(
+  express.json({
+    verify: (req, res, buf) => {
+      req.rawBody = buf.toString();
+    },
+  })
+);
 app.use(cookieParser());
 app.use("/api/v1", router);
 

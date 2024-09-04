@@ -11,6 +11,9 @@ import PublicLayout from "@/layouts/PublicLayout";
 import { useAuthStore } from "@/store/authStore";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 
+import { LiveTrackProvider } from "livetrack-react";
+import "livetrack-react/style.css";
+
 import SignUpPage from "@/pages/SignUpPage";
 import LoginPage from "@/pages/LoginPage";
 import EmailVerificationPage from "@/pages/EmailVerificationPage";
@@ -34,55 +37,57 @@ function App() {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <Routes>
-        <Route path="/" element={<PublicLayout />}>
-          <Route index element={<LandingPage />} />
-          <Route
-            path="login"
-            element={
-              <RedirectAuthenticatedUser>
-                <LoginPage />
-              </RedirectAuthenticatedUser>
-            }
-          />
-          <Route
-            path="signup"
-            element={
-              <RedirectAuthenticatedUser>
-                <SignUpPage />
-              </RedirectAuthenticatedUser>
-            }
-          />
-          <Route path="verify-email" element={<EmailVerificationPage />} />
-          <Route
-            path="forgot-password"
-            element={
-              <RedirectAuthenticatedUser>
-                <ForgotPasswordPage />
-              </RedirectAuthenticatedUser>
-            }
-          />
+      <LiveTrackProvider apiKey={import.meta.env.VITE_LIVETRACK_KEY}>
+        <Routes>
+          <Route path="/" element={<PublicLayout />}>
+            <Route index element={<LandingPage />} />
+            <Route
+              path="login"
+              element={
+                <RedirectAuthenticatedUser>
+                  <LoginPage />
+                </RedirectAuthenticatedUser>
+              }
+            />
+            <Route
+              path="signup"
+              element={
+                <RedirectAuthenticatedUser>
+                  <SignUpPage />
+                </RedirectAuthenticatedUser>
+              }
+            />
+            <Route path="verify-email" element={<EmailVerificationPage />} />
+            <Route
+              path="forgot-password"
+              element={
+                <RedirectAuthenticatedUser>
+                  <ForgotPasswordPage />
+                </RedirectAuthenticatedUser>
+              }
+            />
 
-          <Route
-            path="reset-password/:token"
-            element={
-              <RedirectAuthenticatedUser>
-                <ResetPasswordPage />
-              </RedirectAuthenticatedUser>
-            }
-          />
-        </Route>
+            <Route
+              path="reset-password/:token"
+              element={
+                <RedirectAuthenticatedUser>
+                  <ResetPasswordPage />
+                </RedirectAuthenticatedUser>
+              }
+            />
+          </Route>
 
-        <Route path="/dashboard" element={<ProtectedRoute />}>
-          <Route index element={<DashboardPage />} />
-          <Route path="keys" element={<ApiKeyPage />} />
-          <Route path="account" element={<AccountPage />} />
-          <Route path="analytics/:id" element={<AnalyticsPage />} />
-          <Route path="billings" element={<BillingsPage />} />
-        </Route>
+          <Route path="/dashboard" element={<ProtectedRoute />}>
+            <Route index element={<DashboardPage />} />
+            <Route path="keys" element={<ApiKeyPage />} />
+            <Route path="account" element={<AccountPage />} />
+            <Route path="analytics/:id" element={<AnalyticsPage />} />
+            <Route path="billings" element={<BillingsPage />} />
+          </Route>
 
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </LiveTrackProvider>
       <Toaster />
     </ThemeProvider>
   );

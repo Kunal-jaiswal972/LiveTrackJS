@@ -3,6 +3,7 @@ import { useStore } from "@/hooks/useStore";
 import { useSidebarToggle } from "@/hooks/useSidebarToggle";
 import { Footer } from "@/components/Footer";
 import { SideBar } from "@/components/sidebar/SideBar";
+import LiveTrackWidget from "@/components/LiveTrackWidget";
 
 export default function Layout({ children }) {
   const sidebar = useStore(useSidebarToggle, (state) => state);
@@ -28,6 +29,7 @@ export default function Layout({ children }) {
       >
         <Footer />
       </footer>
+      <LiveTrackWidget />
     </>
   );
 }

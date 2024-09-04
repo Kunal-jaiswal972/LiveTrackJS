@@ -32,7 +32,7 @@ export function getMenuList(pathname) {
         {
           href: "/dashboard",
           label: "Dashboard",
-          active: pathname === ("/dashboard"),
+          active: pathname === "/dashboard",
           icon: LayoutGrid,
           submenus: [],
         },
@@ -96,3 +96,24 @@ export function getMenuList(pathname) {
     },
   ];
 }
+
+export const plans = [
+  {
+    title: "Free",
+    price: "0",
+    features: ["Track up to 3 sites", "1K requests/month"],
+    type: "free",
+  },
+  {
+    title: "Standard",
+    price: "15",
+    features: ["Track up to 5 sites", "4K requests/month"],
+    type: "standard",
+  },
+  {
+    title: "Premium",
+    price: "45",
+    features: ["Track unlimited sites", "10K requests/month"],
+    type: "premium",
+  },
+];
