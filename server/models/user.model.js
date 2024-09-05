@@ -31,19 +31,11 @@ const userSchema = new mongoose.Schema(
     resetPasswordExpiresAt: Date,
     verificationToken: String,
     verificationTokenExpiresAt: Date,
-    stripeCustomerId: { type: String },
-    subscriptionStatus: {
+    stripeCustomerId: {
       type: String,
-      enum: ["active", "canceled", "past_due", "inactive"],
-      default: "inactive",
+      unique: true,
     },
-    planType: {
-      type: String,
-      enum: ["Free", "Standard", "Premium"],
-      default: "Free",
-    },
-    subscriptionId: { type: String },
-    billingCycleStart: { type: Date, default: Date.now },
+    isSubscribed: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

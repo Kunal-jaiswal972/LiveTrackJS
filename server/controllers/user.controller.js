@@ -1,5 +1,7 @@
 import { Site } from "../models/site.model.js";
 import { Activity } from "../models/activity.model.js";
+import { Subscription } from "../models/subscriptions.model.js";
+import { User } from "../models/user.model.js";
 import { redisClient } from "../db/redis.js";
 
 export const getSitesForUser = async (req, res) => {
@@ -53,5 +55,29 @@ export const getActivitiesForSite = async (req, res) => {
   } catch (error) {
     console.error("Error fetching activities for site:", error);
     res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+export const getSubscriptionsPlans = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const user = await User.findOne({ userId });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    if (!user.isSubscribed) {
+      return res.status(200).json({
+        subscription: null,
+        message: "No Active Plan for the user!!",
+        success: true,
+      });
+    }
+
+    const subscription = await Subscription.findOne({ userId });
+    res.status(200).json({ success: true, subscription });
+  } catch (error) {
+    console.error("Error retrieving subscription plans:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };

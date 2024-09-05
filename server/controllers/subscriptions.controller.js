@@ -13,19 +13,7 @@ export const createCheckoutSession = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    let stripeCustomerId = user.stripeCustomerId;
-
-    if (!stripeCustomerId) {
-      const customer = await stripe.customers.create({
-        email: user.email,
-      });
-      stripeCustomerId = customer.id;
-      user.stripeCustomerId = stripeCustomerId;
-      await user.save();
-    }
-
     const priceIdMap = {
-      free: "price_1PvH8yKpPwVKykRFJzcFlb4s",
       standard: "price_1PvH9gKpPwVKykRFwFwEtoB0",
       premium: "price_1PvH9xKpPwVKykRFqowkX46h",
     };
@@ -35,8 +23,8 @@ export const createCheckoutSession = async (req, res) => {
     }
 
     const session = await stripe.checkout.sessions.create({
+      customer_email: user.email,
       payment_method_types: ["card"],
-      customer: stripeCustomerId,
       line_items: [
         {
           price: priceIdMap[planType],

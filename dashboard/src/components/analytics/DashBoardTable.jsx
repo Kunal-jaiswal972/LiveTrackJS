@@ -13,12 +13,12 @@ import {
 import { Alert, AlertTitle } from "@/components/ui/alert";
 
 import { Loader } from "@/components/Loader";
-import { useUserStore } from "@/store/userStore";
+import { useDashboardStore } from "@/store/dashboardStore";
 import { formatDate } from "@/lib/utils";
 import RefreshBtn from "@/components/RefreshBtn";
 
 export function DashBoardTable() {
-  const { sites, getSites, isLoading, error } = useUserStore();
+  const { sites, getSites, isLoading, error } = useDashboardStore();
 
   useEffect(() => {
     getSites();

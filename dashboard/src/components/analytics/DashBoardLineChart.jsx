@@ -15,7 +15,7 @@ import {
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Loader } from "@/components/Loader";
 
-import { useUserStore } from "@/store/userStore";
+import { useDashboardStore } from "@/store/dashboardStore";
 
 const chartConfig = {
   peakUsers: {
@@ -34,7 +34,7 @@ const chartConfig = {
 
 export function DashBoardLineChart() {
   const { id } = useParams();
-  const { activity, error, isLoading, getActivity } = useUserStore();
+  const { activity, error, isLoading, getActivity } = useDashboardStore();
 
   useEffect(() => {
     if (id) {

@@ -1,4 +1,4 @@
-import { Settings, ChartPie, LayoutGrid, KeyRound, Gem } from "lucide-react";
+import { Settings, ChartPie, LayoutGrid, KeyRound, Gem, ScrollText } from "lucide-react";
 
 export const floatingShapesConfig = [
   {
@@ -90,6 +90,13 @@ export function getMenuList(pathname) {
           label: "Account",
           active: pathname.includes("/dashboard/account"),
           icon: Settings,
+          submenus: [],
+        },
+        {
+          href: "#",
+          label: "Documentation",
+          active: pathname.includes("#"),
+          icon: ScrollText,
           submenus: [],
         },
       ],

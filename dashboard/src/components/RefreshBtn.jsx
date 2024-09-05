@@ -6,10 +6,10 @@ import {
   TooltipTrigger,
   TooltipProvider,
 } from "@/components/ui/tooltip";
-import { useUserStore } from "@/store/userStore";
+import { useDashboardStore } from "@/store/dashboardStore";
 
 const RefreshBtn = () => {
-  const { handleRefresh, getSites } = useUserStore();
+  const { handleRefresh, getSites } = useDashboardStore();
 
   return (
     <TooltipProvider disableHoverableContent>
