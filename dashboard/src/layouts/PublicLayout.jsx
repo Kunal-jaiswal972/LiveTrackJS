@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import FloatingShape from "@/components/FloatingShape";
+import FloatingShape from "@/components/shared/FloatingShape";
 import { floatingShapesConfig } from "@/constants/constants";
 
 const PublicLayout = () => {

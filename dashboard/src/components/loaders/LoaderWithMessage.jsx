@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { LoaderCircle } from "lucide-react";
 
-export const Loader = ({ message }) => {
+export const LoaderWithMessage = ({ message }) => {
   return (
     <motion.div
       className="p-1 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700"

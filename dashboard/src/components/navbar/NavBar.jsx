@@ -1,4 +1,4 @@
-import { ModeToggle } from "@/components/ModeToggle";
+import { ModeToggle } from "@/components/navbar/ModeToggle";
 import { UserBtn } from "@/components/navbar/UserBtn";
 import { SheetMenu } from "@/components/sidebar/SheetMenu";
 

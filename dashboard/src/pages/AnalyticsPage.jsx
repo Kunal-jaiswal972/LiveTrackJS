@@ -1,4 +1,4 @@
-import { ContentLayout } from "@/components/ContentLayout";
+import { ContentLayout } from "@/components/shared/ContentLayout";
 import { DashBoardLineChart } from "@/components/analytics/DashBoardLineChart";
 
 export default function AnalyticsPage() {

@@ -1,4 +1,4 @@
-import { ContentLayout } from "@/components/ContentLayout";
+import { ContentLayout } from "@/components/shared/ContentLayout";
 import ApiKeyInput from "@/components/input/ApiKeyInput";
 
 export default function ApiKeyPage() {

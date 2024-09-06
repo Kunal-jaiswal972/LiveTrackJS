@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ContentLayout } from "@/components/ContentLayout";
+import { ContentLayout } from "@/components/shared/ContentLayout";
 import { useAuthStore } from "@/store/authStore";
 import { formatDate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";

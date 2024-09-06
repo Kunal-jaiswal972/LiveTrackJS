@@ -1,5 +1,5 @@
 import express from "express";
-import { createCheckoutSession } from "../controllers/subscriptions.controller.js";
+import { createBillingPortalSession, createCheckoutSession } from "../controllers/subscriptions.controller.js";
 import { webhookHandler } from "../controllers/webhook.controller.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 
@@ -9,7 +9,7 @@ router.post("/create-checkout-session", verifyToken, createCheckoutSession);
 router.post(
   "/create-billing-portal-session",
   verifyToken,
-  createCheckoutSession
+  createBillingPortalSession
 );
 router.post(
   "/webhooks",

@@ -62,7 +62,7 @@ export const useDashboardStore = create((set) => ({
   handleRefresh: async () => {
     try {
       const res = await axiosInstance.get(`/general/sync`);
-      toast.success(res.data.message || "Synced data successfully");
+      toast.success(res.data.message || "Data synced successfully");
     } catch (error) {
       set({
         error: error.response?.data?.message || "Error syncing",

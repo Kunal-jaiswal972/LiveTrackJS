@@ -1,5 +1,5 @@
-import { ContentLayout } from "@/components/ContentLayout";
-import { DashBoardTable } from "@/components/analytics/DashBoardTable";
+import { ContentLayout } from "@/components/shared/ContentLayout";
+import { DashBoardTable } from "@/components/dashboard/DashBoardTable";
 
 export default function DashboardPage() {
   return (

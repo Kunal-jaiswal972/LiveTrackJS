@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 
-import LoadingSpinner from "@/components/LoadingSpinner";
+import LoadingSpinner from "@/components/loaders/LoadingSpinner";
 
 import { ProtectedRoute } from "@/layouts/ProtectedRoute";
 import { RedirectAuthenticatedUser } from "@/layouts/RedirectAuthenticatedUser";
