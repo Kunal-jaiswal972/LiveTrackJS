@@ -5,7 +5,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const createCheckoutSession = async (req, res) => {
   try {
-    const { planType } = req.body;
+    const { plan } = req.body;
     const userId = req.userId;
 
     const user = await User.findById(userId);
