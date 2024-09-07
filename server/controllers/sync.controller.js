@@ -3,6 +3,8 @@ import { Site } from "../models/site.model.js";
 import { Activity } from "../models/activity.model.js";
 import { redisClient } from "../db/redis.js";
 
+const UPDATE_INTERVAL = 1;
+
 export const syncRedisWithMongo = async (req, res) => {
   try {
     const lastUpdatedTime = await redisClient.get("lastUpdatedAt");
@@ -10,10 +12,9 @@ export const syncRedisWithMongo = async (req, res) => {
       const lastUpdatedDate = new Date(lastUpdatedTime);
       const now = new Date();
 
-      // Check if 12 hours have passed since the last update
       const hoursSinceLastUpdate = (now - lastUpdatedDate) / (1000 * 60 * 60);
 
-      if (hoursSinceLastUpdate < 12) {
+      if (hoursSinceLastUpdate < UPDATE_INTERVAL) {
         const remainingTime = 12 - hoursSinceLastUpdate;
         const remainingHours = Math.floor(remainingTime);
         const remainingMinutes = Math.round(

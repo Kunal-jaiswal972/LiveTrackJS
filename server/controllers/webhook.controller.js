@@ -70,7 +70,7 @@ const handleCheckoutSessionCompleted = async (data) => {
       { userId },
       {
         subscriptionId,
-        plan: product.name,
+        plan: product.name.toLowerCase(),
         productId,
         startDate,
         endDate,

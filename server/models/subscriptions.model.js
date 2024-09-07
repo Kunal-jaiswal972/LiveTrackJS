@@ -5,7 +5,7 @@ const subscriptionSchema = new mongoose.Schema(
     subscriptionId: { type: "string", required: true },
     plan: {
       type: String,
-      enum: ["Free", "Standard", "Premium"],
+      enum: ["free", "standard", "premium"],
       default: "Free",
     },
     productId: { type: "string", required: true },
