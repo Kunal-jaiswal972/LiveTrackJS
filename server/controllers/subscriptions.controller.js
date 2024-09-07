@@ -5,7 +5,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const createCheckoutSession = async (req, res) => {
   try {
-    const { planType } = req.body;
+    const { plan } = req.body;
     const userId = req.userId;
 
     const user = await User.findById(userId);
@@ -18,7 +18,7 @@ export const createCheckoutSession = async (req, res) => {
       premium: "price_1PvH9xKpPwVKykRFqowkX46h",
     };
 
-    if (!priceIdMap[planType]) {
+    if (!priceIdMap[plan]) {
       return res.status(400).json({ error: "Invalid plan type" });
     }
 
@@ -27,7 +27,7 @@ export const createCheckoutSession = async (req, res) => {
       payment_method_types: ["card"],
       line_items: [
         {
-          price: priceIdMap[planType],
+          price: priceIdMap[plan],
           quantity: 1,
         },
       ],
