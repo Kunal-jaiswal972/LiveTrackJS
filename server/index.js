@@ -14,9 +14,6 @@ import {
   handleConnection,
   handleDisconnection,
 } from "./controllers/socket.controller.js";
-import { checkSiteLimitMiddleware } from "./middleware/checkSiteLimitMiddleware.js";
-
-// import "./jobs/syncRedisToMongoDB.js";
 
 dotenv.config();
 const port = process.env.PORT || 3000;
@@ -48,7 +45,6 @@ app.use(cookieParser());
 app.use("/api/v1", router);
 
 io.use(validateApiKeyMiddleware);
-io.use(checkSiteLimitMiddleware);
 
 io.on("connection", async (socket) => {
   handleConnection(socket, io);
