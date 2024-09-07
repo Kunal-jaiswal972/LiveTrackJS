@@ -17,7 +17,7 @@ export const useCheckoutStore = create((set) => ({
       );
 
       if (response.status === 200) {
-        toast.success("Redirecting to checkout session...")
+        toast.loading("Redirecting to checkout session...")
         window.location.href = response.data.url;
       } else {
         throw new Error("No checkout session URL received");
@@ -39,7 +39,7 @@ export const useCheckoutStore = create((set) => ({
       );
       
       if (response.status === 200) {
-        toast.success("Redirecting to billing portal...")
+        toast.loading("Redirecting to billing portal...")
         window.location.href = response.data.url;
       } else {
         throw new Error("No billing session URL received");

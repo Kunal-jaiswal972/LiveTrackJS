@@ -13,10 +13,9 @@ export const PricingCard = ({ title, price, features, type, active }) => {
     useCheckoutStore();
   const [loading, setLoading] = useState(false);
 
-  const isActive = active?.toLowerCase() === type.toLowerCase();
-  const isFree = type.toLowerCase() === "free";
-  const isPro =
-    active.toLowerCase() === "premium" || active.toLowerCase() === "standard";
+  const isActive = active === type;
+  const isFree = type === "free";
+  const isPro = active === "premium" || active === "standard";
 
   const handleCheckout = async () => {
     if (isFree) return;
@@ -34,6 +33,13 @@ export const PricingCard = ({ title, price, features, type, active }) => {
     }
   };
 
+  const buttonText = () => {
+    if (isFree && isActive) return "Active";
+    if (isFree) return "Default";
+    if (isActive) return "Active";
+    return "Get Started";
+  };
+
   return (
     <motion.div
       variants={{
@@ -42,7 +48,7 @@ export const PricingCard = ({ title, price, features, type, active }) => {
       }}
       className="flex justify-center items-center"
     >
-      <Card className="bg-muted shadow-lg rounded-lg overflow-hidden w-[300px] sm:w-full">
+      <Card className="bg-muted shadow-lg rounded-lg overflow-hidden w-[300px] sm:w-full ">
         <CardHeader className="bg-muted text-green-400 py-4 px-6">
           <h2 className="text-xl font-bold">{title}</h2>
         </CardHeader>
@@ -76,12 +82,8 @@ export const PricingCard = ({ title, price, features, type, active }) => {
           >
             {loading ? (
               <LoaderCircle className="w-6 h-6 animate-spin mx-auto" />
-            ) : isFree ? (
-              "Default"
-            ) : isActive ? (
-              "Active"
             ) : (
-              "Get Started"
+              buttonText()
             )}
           </motion.button>
         </CardContent>

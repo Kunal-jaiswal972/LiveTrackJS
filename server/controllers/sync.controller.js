@@ -15,7 +15,7 @@ export const syncRedisWithMongo = async (req, res) => {
       const hoursSinceLastUpdate = (now - lastUpdatedDate) / (1000 * 60 * 60);
 
       if (hoursSinceLastUpdate < UPDATE_INTERVAL) {
-        const remainingTime = 12 - hoursSinceLastUpdate;
+        const remainingTime = UPDATE_INTERVAL - hoursSinceLastUpdate;
         const remainingHours = Math.floor(remainingTime);
         const remainingMinutes = Math.round(
           (remainingTime - remainingHours) * 60

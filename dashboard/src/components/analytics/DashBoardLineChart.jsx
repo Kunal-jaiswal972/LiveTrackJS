@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/chart";
 import { LoaderWithMessage } from "@/components/loaders/LoaderWithMessage";
 import { CalloutCard } from "@/components/shared/CalloutCard";
-import RefreshBtn from "@/components/dashboard/RefreshBtn";
+import { RefreshBtn } from "@/components/shared/RefreshBtn";
 
 const chartConfig = {
   peakUsers: {

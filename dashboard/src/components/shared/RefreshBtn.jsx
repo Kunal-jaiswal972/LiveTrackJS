@@ -5,7 +5,7 @@ import { useDashboardStore } from "@/store/dashboardStore";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const RefreshBtn = ({ className }) => {
+export const RefreshBtn = ({ className }) => {
   const { handleRefresh, getSites } = useDashboardStore();
 
   return (
@@ -23,5 +23,3 @@ const RefreshBtn = ({ className }) => {
     </Button>
   );
 };
-
-export default RefreshBtn;

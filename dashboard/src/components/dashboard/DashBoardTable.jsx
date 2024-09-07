@@ -2,6 +2,10 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { CircleArrowRight } from "lucide-react";
+
+import { useDashboardStore } from "@/store/dashboardStore";
+import { formatDate } from "@/lib/utils";
+
 import {
   Table,
   TableBody,
@@ -10,13 +14,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
 import { LoaderWithMessage } from "@/components/loaders/LoaderWithMessage";
-import RefreshBtn from "@/components/dashboard/RefreshBtn";
+import { RefreshBtn } from "@/components/shared/RefreshBtn";
 import { CalloutCard } from "@/components/shared/CalloutCard";
-
-import { useDashboardStore } from "@/store/dashboardStore";
-import { formatDate } from "@/lib/utils";
 
 export function DashBoardTable() {
   const { sites, getSites, isLoading, error } = useDashboardStore();
@@ -54,7 +54,6 @@ export function DashBoardTable() {
               <TableHead className="">Sites</TableHead>
               <TableHead>Live Users</TableHead>
               <TableHead>Tracking Since</TableHead>
-              <TableHead>Requests</TableHead>
               <TableHead className="text-right"></TableHead>
             </TableRow>
           </TableHeader>
@@ -78,12 +77,11 @@ export function DashBoardTable() {
                 </TableCell>
                 <TableCell>{site.liveUsers || "0"}</TableCell>
                 <TableCell>{formatDate(site.createdAt)}</TableCell>
-                <TableCell>{site.requests || "0"}</TableCell>
                 <TableCell className="text-right">
                   <Link
                     to={`/dashboard/analytics/${site._id}`}
                     className="text-sm text-green-400 hover:underline flex items-center"
-                    state={{site}}
+                    state={{ site }}
                   >
                     <CircleArrowRight className="h-5 w-5 hover:scale-110" />
                   </Link>

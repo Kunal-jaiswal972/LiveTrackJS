@@ -1,4 +1,11 @@
-import { Settings, ChartPie, LayoutGrid, KeyRound, Gem, ScrollText } from "lucide-react";
+import {
+  Settings,
+  ChartPie,
+  LayoutGrid,
+  KeyRound,
+  Gem,
+  ScrollText,
+} from "lucide-react";
 
 export const floatingShapesConfig = [
   {
@@ -108,19 +115,23 @@ export const plans = [
   {
     title: "Free",
     price: "0",
-    features: ["Track up to 3 sites", "1K requests/month"],
+    features: ["Track up 15 days"],
     type: "free",
   },
   {
     title: "Standard",
     price: "15",
-    features: ["Track up to 5 sites", "4K requests/month"],
+    features: ["Track up 30 days", "Geographical Tracking"],
     type: "standard",
   },
   {
     title: "Premium",
     price: "45",
-    features: ["Track unlimited sites", "10K requests/month"],
+    features: [
+      "Track upto 90 days",
+      "Geographical Tracking",
+      "Priority support",
+    ],
     type: "premium",
   },
 ];
