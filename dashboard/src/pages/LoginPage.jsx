@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Lock, Loader } from "lucide-react";
+import { Mail, Lock, Loader, Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import Input from "@/components/input/Input";
@@ -9,12 +9,31 @@ import { useAuthStore } from "@/store/authStore";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const { login, isLoading, error } = useAuthStore();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     await login(email, password);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.ctrlKey && e.key === "Enter") {
+      setEmail("nofoke1340@daypey.com");
+      setPassword("123456");
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible((prev) => !prev);
   };
 
   return (
@@ -29,6 +48,11 @@ const LoginPage = () => {
           Welcome Back
         </h2>
 
+        <p className="mb-4 text-sm text-rose-500 text-center">
+          * Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to log in through guest
+          account
+        </p>
+
         <form onSubmit={handleLogin}>
           <Input
             icon={Mail}
@@ -38,13 +62,26 @@ const LoginPage = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <Input
-            icon={Lock}
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="relative">
+            <Input
+              icon={Lock}
+              type={passwordVisible ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              className="absolute inset-y-0 right-0 pr-3 flex items-center"
+              onClick={togglePasswordVisibility}
+            >
+              {passwordVisible ? (
+                <EyeOff className="w-5 h-5 text-green-500" />
+              ) : (
+                <Eye className="w-5 h-5 text-green-500" />
+              )}
+            </button>
+          </div>
 
           <div className="flex items-center mb-6">
             <Link
@@ -82,4 +119,5 @@ const LoginPage = () => {
     </motion.div>
   );
 };
+
 export default LoginPage;

@@ -3,6 +3,7 @@ import { Activity } from "../models/activity.model.js";
 import { Subscription } from "../models/subscriptions.model.js";
 import { User } from "../models/user.model.js";
 import { redisClient } from "../db/redis.js";
+import { getFavicon } from "../utils/utils.js";
 
 export const getSitesForUser = async (req, res) => {
   try {
@@ -19,9 +20,12 @@ export const getSitesForUser = async (req, res) => {
           `live_users:${site.host}:${userId}`
         );
 
+        const favicon = await getFavicon(site.host);
+
         return {
           ...site.toObject(),
           liveUsers: parseInt(liveUsersCount, 10) || 0,
+          favicon,
         };
       })
     );

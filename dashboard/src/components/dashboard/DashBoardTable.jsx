@@ -1,11 +1,9 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { CircleArrowRight } from "lucide-react";
-
+import { CircleArrowRight, ExternalLink, ImageOff } from "lucide-react";
 import { useDashboardStore } from "@/store/dashboardStore";
 import { formatDate } from "@/lib/utils";
-
 import {
   Table,
   TableBody,
@@ -14,6 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LoaderWithMessage } from "@/components/loaders/LoaderWithMessage";
 import { RefreshBtn } from "@/components/shared/RefreshBtn";
 import { CalloutCard } from "@/components/shared/CalloutCard";
@@ -35,7 +34,7 @@ export function DashBoardTable() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
-      <div className="relative">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
         <CalloutCard
           variant="success"
           text={
@@ -44,17 +43,18 @@ export function DashBoardTable() {
               : "These are the sites being tracked by us through your API key!!"
           }
         />
-        <RefreshBtn className="absolute right-3 top-3" />
+        <RefreshBtn />
       </div>
 
       {sites.length !== 0 && (
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="">Sites</TableHead>
+              <TableHead>Icon</TableHead>
+              <TableHead>Sites</TableHead>
               <TableHead>Live Users</TableHead>
               <TableHead>Tracking Since</TableHead>
-              <TableHead className="text-right"></TableHead>
+              <TableHead className="text-green-400">Analytics</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -66,18 +66,28 @@ export function DashBoardTable() {
                 transition={{ delay: idx * 0.2, duration: 0.5 }}
                 className="hover:bg-muted/50 align-middle"
               >
+                <TableCell>
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src={site.favicon} alt="Favicon" />
+                    <AvatarFallback>
+                      <ImageOff className="w-5 h-5" />
+                    </AvatarFallback>
+                  </Avatar>
+                </TableCell>
                 <TableCell className="font-medium underline underline-offset-2">
                   <a
                     href={`https://${site.host}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="space-x-2 flex items-center"
                   >
-                    {site.host}
+                    <span>{site.host}</span>
+                    <ExternalLink className="w-5 h-5" />
                   </a>
                 </TableCell>
                 <TableCell>{site.liveUsers || "0"}</TableCell>
                 <TableCell>{formatDate(site.createdAt)}</TableCell>
-                <TableCell className="text-right">
+                <TableCell>
                   <Link
                     to={`/dashboard/analytics/${site._id}`}
                     className="text-sm text-green-400 hover:underline flex items-center"

@@ -10,7 +10,7 @@ export const RefreshBtn = ({ className }) => {
 
   return (
     <Button
-      className={cn("flex gap-1", className)}
+      className={cn("h-full flex gap-1 w-full sm:w-min", className)}
       size="xs"
       variant="signature"
       onClick={() => {

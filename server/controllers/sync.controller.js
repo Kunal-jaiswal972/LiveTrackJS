@@ -117,7 +117,7 @@ export const syncRedisWithMongo = async (req, res) => {
 
     res
       .status(200)
-      .json({ success: true, message: "Synced data successfully" });
+      .json({ success: true, message: "Data synced successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({

@@ -16,6 +16,7 @@ import {
 import { LoaderWithMessage } from "@/components/loaders/LoaderWithMessage";
 import { CalloutCard } from "@/components/shared/CalloutCard";
 import { RefreshBtn } from "@/components/shared/RefreshBtn";
+import { SiteHeading } from "@/components/analytics/SiteHeading";
 
 const chartConfig = {
   peakUsers: {
@@ -35,7 +36,7 @@ const chartConfig = {
 export function DashBoardLineChart() {
   const { id } = useParams();
   const location = useLocation();
-  const siteAddress = location.state.site.host || {};
+  const siteInfo = location.state.site || {};
   const { activity, error, isLoading, getActivity } = useDashboardStore();
 
   useEffect(() => {
@@ -54,25 +55,18 @@ export function DashBoardLineChart() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
-      <div className="relative">
-        <CalloutCard
-          variant="success"
-          text={activity.length === 0 ? "No data available." : siteAddress}
-        />
-        <RefreshBtn className="absolute right-3 top-3" />
-      </div>
+      {activity.length === 0 && (
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
+          <CalloutCard variant="success" text="No data available." />
+          <RefreshBtn />
+        </div>
+      )}
 
       {activity.length !== 0 && (
         <Card>
           <CardHeader>
-            <CardTitle className="underline underline-offset-4 font-bold">
-              <a
-                href={`https://${siteAddress}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {siteAddress}
-              </a>
+            <CardTitle className="font-medium underline underline-offset-2">
+              <SiteHeading site={siteInfo} />
             </CardTitle>
           </CardHeader>
           <CardContent>
