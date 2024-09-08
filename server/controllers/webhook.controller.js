@@ -24,14 +24,17 @@ export const webhookHandler = async (req, res) => {
 
   switch (event.type) {
     case "checkout.session.completed":
-      await handleCheckoutSessionCompleted(event.data.object);
+      handleCheckoutSessionCompleted(event.data.object);
       break;
     case "customer.subscription.deleted":
-      await handleSubscriptionDeleted(event.data.object);
+      handleSubscriptionDeleted(event.data.object);
       break;
-    case "customer.subscription.updated":
-      await handleSubscriptionUpdated(event.data.object);
-      break;
+    // case "invoice.payment_failed":
+    //   handleInvoicePaymentFailed(event.data);
+    //   break;
+    // case "customer.subscription.updated":
+    //   handleSubscriptionUpdated(event.data);
+    //   break;
     default:
       console.log(`Unhandled event type ${event.type}`);
   }
@@ -52,7 +55,6 @@ const handleCheckoutSessionCompleted = async (data) => {
     if (!user.stripeCustomerId) {
       user.stripeCustomerId = customerId;
       user.isSubscribed = true;
-      user.subscriptionStatus = "active";
       await user.save();
     }
 
@@ -65,7 +67,7 @@ const handleCheckoutSessionCompleted = async (data) => {
     const product = await stripe.products.retrieve(productId);
 
     await Subscription.findOneAndUpdate(
-      { subscriptionId },
+      { userId },
       {
         subscriptionId,
         plan: product.name.toLowerCase(),
@@ -89,79 +91,55 @@ const handleCheckoutSessionCompleted = async (data) => {
 
 const handleSubscriptionDeleted = async (data) => {
   try {
-    const subscriptionId = data.id;
     const customerId = data.customer;
     const user = await User.findOne({ stripeCustomerId: customerId });
     if (!user) {
-      console.error(`User not found: ${customerId}`);
+      console.error(`User not found: ${user._id}`);
       return;
     }
 
-    user.subscriptionStatus = "canceled";
     user.isSubscribed = false;
     await user.save();
 
-    await Subscription.findOneAndUpdate(
-      { subscriptionId },
-      {
-        endDate: new Date(),
-      },
-      {
-        new: true,
-      }
-    );
-
     console.log(`Subscription canceled for user ${user._id}`);
   } catch (error) {
-    console.error("Error handling subscription canceled:", error);
+    console.error("Error handling subscription deleted:", error);
   }
 };
 
-const handleSubscriptionUpdated = async (data) => {
-  try {
-    const subscriptionId = data.id;
-    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-    const customerId = subscription.customer;
+// const handleInvoicePaymentFailed = async (invoice) => {
+//   try {
+//     const subscriptionId = invoice.subscription;
+//     const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+//     const productId = subscription.items.data[0].price.product;
+//     const product = await stripe.products.retrieve(productId);
 
-    const user = await User.findOne({ stripeCustomerId: customerId });
-    if (!user) {
-      console.error(`User not found for customerId: ${customerId}`);
-      return;
-    }
+//     const user = await User.findOne({ subscriptionId });
+//     if (user) {
+//       user.subscriptionStatus = "past_due";
+//       user.planType = product.name;
+//       await user.save();
+//       console.log(`Invoice payment failed for user ${user._id}`);
+//     }
+//   } catch (error) {
+//     console.error("Error handling invoice payment failed:", error);
+//   }
+// };
 
-    const productId = subscription.items.data[0].price.product;
-    const product = await stripe.products.retrieve(productId);
+// const handleSubscriptionUpdated = async (subscription) => {
+//   try {
+//     const userId = subscription.metadata.userId;
+//     const productId = subscription.items.data[0].price.product;
+//     const product = await stripe.products.retrieve(productId);
 
-
-    await Subscription.findOneAndUpdate(
-      { subscriptionId },
-      {
-        plan: product.name.toLowerCase(),
-        startDate: new Date(subscription.current_period_start * 1000),
-        endDate: new Date(subscription.current_period_end * 1000),
-      },
-      {
-        new: true,
-        upsert: true,
-      }
-    );
-
-    console.log(subscription.status);
-
-    if (subscription.status === "active") {
-      user.subscriptionStatus = "active";
-    } else if (subscription.status === "canceled") {
-      user.subscriptionStatus = "canceled";
-    } else if (subscription.status === "past_due") {
-      user.subscriptionStatus = "expired";
-    } else {
-      user.subscriptionStatus = "inactive";
-    }
-
-    await user.save();
-
-    console.log(`Subscription updated for user ${user._id}`);
-  } catch (error) {
-    console.error("Error handling subscription updated:", error);
-  }
-};
+//     const user = await User.findById(userId);
+//     if (user) {
+//       user.subscriptionStatus = subscription.status;
+//       user.planType = product.name;
+//       await user.save();
+//       console.log(`Subscription updated for user ${userId}`);
+//     }
+//   } catch (error) {
+//     console.error("Error handling subscription updated:", error);
+//   }
+// };
