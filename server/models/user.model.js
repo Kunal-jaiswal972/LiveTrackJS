@@ -33,7 +33,6 @@ const userSchema = new mongoose.Schema(
     verificationTokenExpiresAt: Date,
     stripeCustomerId: {
       type: String,
-      unique: true,
     },
     isSubscribed: { type: Boolean, default: false },
   },

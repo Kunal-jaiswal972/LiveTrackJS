@@ -78,6 +78,11 @@ export const getSubscriptionsPlans = async (req, res) => {
       });
     }
 
+    //do the subscriptions like this https://youtu.be/Qm7-7PnszM4?si=k6Yy_YXiPMg2KuS5&t=27646
+    // check for date expiry
+    // do not include subscription data in user model rather check for it in subscription model with a unique subscription id in subscription model for each user(also unique for each user)
+    // do for cancel subscription case yourself
+
     const subscription = await Subscription.findOne({ userId });
     res.status(200).json({ success: true, subscription });
   } catch (error) {
