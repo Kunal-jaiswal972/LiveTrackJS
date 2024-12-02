@@ -11,8 +11,8 @@ import PublicLayout from "@/layouts/PublicLayout";
 import { useAuthStore } from "@/store/authStore";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 
-import { LiveTrackProvider } from "livetrack-react";
-import "livetrack-react/style.css";
+// import { LiveTrackProvider } from "livetrack-react";
+// import "livetrack-react/style.css";
 
 import SignUpPage from "@/pages/SignUpPage";
 import LoginPage from "@/pages/LoginPage";
@@ -37,7 +37,7 @@ function App() {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <LiveTrackProvider apiKey={import.meta.env.VITE_LIVETRACK_KEY}>
+      {/* <LiveTrackProvider apiKey={import.meta.env.VITE_LIVETRACK_KEY}> */}
         <Routes>
           <Route path="/" element={<PublicLayout />}>
             <Route index element={<LandingPage />} />
@@ -87,7 +87,7 @@ function App() {
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </LiveTrackProvider>
+      {/* </LiveTrackProvider> */}
       <Toaster />
     </ThemeProvider>
   );

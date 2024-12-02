@@ -7,26 +7,26 @@ const UPDATE_INTERVAL = 1;
 
 export const syncRedisWithMongo = async (req, res) => {
   try {
-    const lastUpdatedTime = await redisClient.get("lastUpdatedAt");
-    if (lastUpdatedTime) {
-      const lastUpdatedDate = new Date(lastUpdatedTime);
-      const now = new Date();
+    // const lastUpdatedTime = await redisClient.get("lastUpdatedAt");
+    // if (lastUpdatedTime) {
+    //   const lastUpdatedDate = new Date(lastUpdatedTime);
+    //   const now = new Date();
 
-      const hoursSinceLastUpdate = (now - lastUpdatedDate) / (1000 * 60 * 60);
+    //   const hoursSinceLastUpdate = (now - lastUpdatedDate) / (1000 * 60 * 60);
 
-      if (hoursSinceLastUpdate < UPDATE_INTERVAL) {
-        const remainingTime = UPDATE_INTERVAL - hoursSinceLastUpdate;
-        const remainingHours = Math.floor(remainingTime);
-        const remainingMinutes = Math.round(
-          (remainingTime - remainingHours) * 60
-        );
+    //   if (hoursSinceLastUpdate < UPDATE_INTERVAL) {
+    //     const remainingTime = UPDATE_INTERVAL - hoursSinceLastUpdate;
+    //     const remainingHours = Math.floor(remainingTime);
+    //     const remainingMinutes = Math.round(
+    //       (remainingTime - remainingHours) * 60
+    //     );
 
-        return res.status(200).json({
-          success: true,
-          message: `Data is already up-to-date. Try again in ${remainingHours} hrs and ${remainingMinutes} mins!`,
-        });
-      }
-    }
+    //     return res.status(200).json({
+    //       success: true,
+    //       message: `Data is already up-to-date. Try again in ${remainingHours} hrs and ${remainingMinutes} mins!`,
+    //     });
+    //   }
+    // }
 
     const peakUserKeys = await redisClient.keys("peak_users:*");
     const totalUsersKeys = await redisClient.keys("total_users:*");
