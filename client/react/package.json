@@ -1,7 +1,7 @@
 {
-  "name": "livetrack-react",
-  "version": "1.0.8",
-  "description": "A React client package for tracking online users",
+  "name": "livetrack",
+  "version": "1.0.0",
+  "description": "React client package to integrate LiveTrack in our react websites",
   "type": "module",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -9,8 +9,7 @@
     ".": {
       "import": "./dist/index.es.js",
       "require": "./dist/index.umd.js"
-    },
-    "./style.css": "./dist/style.css"
+    }
   },
   "files": [
     "dist"
@@ -61,7 +60,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kunal-jaiswal972"
+    "url": "https://github.com/Kunal-jaiswal972/LiveTrack"
   },
-  "homepage": "https://github.com/Kunal-jaiswal972/LiveTrackJS/#readme"
+  "homepage": "https://github.com/Kunal-jaiswal972/LiveTrack"
 }
