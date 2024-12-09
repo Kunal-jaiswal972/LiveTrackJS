@@ -135,3 +135,8 @@ export const plans = [
     type: "premium",
   },
 ];
+
+export const cooldownBanner = {
+  time: 7000,
+  msg: "Server is hosted on free render plan which may take some time for first time loading!!",
+};
