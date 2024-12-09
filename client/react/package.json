@@ -22,7 +22,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "gen-env": "npx gen-env-types .env -e ."
   },
   "dependencies": {
     "lucide-react": "^0.429.0",
