@@ -35,8 +35,16 @@ const LoginPage = () => {
         </h2>
 
         <p className="mb-4 text-sm text-rose-500 text-center">
-          you can use this website to get a temporary mail for testing purposes
-          <a href="https://temp-mail.org/en/">Temp Mail</a>
+          You can use
+          <a
+            href="https://temp-mail.org/en/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline text-green-400 hover:text-green-500 ml-1"
+          >
+            this website
+          </a>{" "}
+          to get a temporary mail for testing purposes:
         </p>
 
         <form onSubmit={handleLogin}>
