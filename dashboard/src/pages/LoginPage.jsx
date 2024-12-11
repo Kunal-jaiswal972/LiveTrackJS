@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Lock, Loader, Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -18,20 +18,6 @@ const LoginPage = () => {
     await login(email, password);
   };
 
-  const handleKeyDown = (e) => {
-    if (e.ctrlKey && e.key === "Enter") {
-      setEmail("nofoke1340@daypey.com");
-      setPassword("123456");
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
-
   const togglePasswordVisibility = () => {
     setPasswordVisible((prev) => !prev);
   };
@@ -49,8 +35,8 @@ const LoginPage = () => {
         </h2>
 
         <p className="mb-4 text-sm text-rose-500 text-center">
-          * Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to log in through guest
-          account
+          you can use this website to get a temporary mail for testing purposes
+          <a href="https://temp-mail.org/en/">Temp Mail</a>
         </p>
 
         <form onSubmit={handleLogin}>
