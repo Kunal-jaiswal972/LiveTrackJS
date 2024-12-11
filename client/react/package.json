@@ -1,6 +1,6 @@
 {
   "name": "livetrack",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "React client package to integrate LiveTrack in our react websites",
   "type": "module",
   "main": "dist/index.umd.js",
