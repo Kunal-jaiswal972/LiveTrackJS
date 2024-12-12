@@ -100,9 +100,9 @@ export function getMenuList(pathname) {
           submenus: [],
         },
         {
-          href: "#",
+          href: "/dashboard/docs",
           label: "Documentation",
-          active: pathname.includes("#"),
+          active: pathname.includes("/dashboard/docs"),
           icon: ScrollText,
           submenus: [],
         },

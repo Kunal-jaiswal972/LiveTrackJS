@@ -75,3 +75,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+.prose :where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *)){
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+}
