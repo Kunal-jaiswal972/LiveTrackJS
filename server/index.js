@@ -30,7 +30,7 @@ const io = new Server(server, {
 app.use(morgan("dev"));
 app.use(
   cors({
-    origin: [process.env.DASHBOARD_CLIENT_URL, "http://localhost:5174"],
+    origin: process.env.DASHBOARD_CLIENT_URL,
     credentials: true,
   })
 );
