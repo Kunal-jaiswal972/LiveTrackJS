@@ -1,7 +1,7 @@
 import bcryptjs from "bcryptjs";
 import crypto from "crypto";
 
-import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
+import { cookieOptions, generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
 import {
   sendPasswordResetEmail,
   sendResetSuccessEmail,
@@ -133,15 +133,11 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  const isProduction = process.env.NODE_ENV === "production";
-
-  res.clearCookiecookie("token", token, {
-    httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? "none" : "strict",
-    domain: isProduction ? process.env.DASHBOARD_CLIENT_URL : undefined,
-    path: "/",
+  res.clearCookie("token", {
+    ...cookieOptions,
+    maxAge: 0,
   });
+
   res.status(200).json({ success: true, message: "Logged out successfully" });
 };
 
