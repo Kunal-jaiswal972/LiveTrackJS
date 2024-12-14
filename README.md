@@ -28,6 +28,7 @@ Follow these steps to set up your React application:
    Configure Tailwind in your project by updating the `tailwind.config.js` and adding the Tailwind directives to your CSS file.
 
 3. Install LiveTrack React:
+
    ```bash
    npm install livetrack
    ```
@@ -40,12 +41,12 @@ To integrate LiveTrack into your React app, wrap your application with the `Live
 
 ```jsx
 import { LiveTrackProvider } from "livetrack";
-import LiveUsersWidget from "./components"
+import { LiveUsersWidget } from "./components/LiveUsersWidget";
 
 function App() {
   return (
     <LiveTrackProvider apiKey="your-api-key">
-      <LiveUsersWidget message="Viewing this page"/>
+      <LiveUsersWidget message="Viewing this page" />
     </LiveTrackProvider>
   );
 }
@@ -60,12 +61,13 @@ Replace `"your-api-key"` with the API key you will generate in the dashboard.
 You can use the `useLiveUsers` hook to create a custom widget. Here's an example:
 
 Install Lucide React:
+
 ```bash
 npm install lucide-react
 ```
 
 ```jsx
-import useLiveUsers from "livetrack";
+import { useLiveUsers } from "livetrack";
 import { BadgeCheck, LoaderCircle } from "lucide-react";
 
 export const LiveUsersWidget = ({ message }) => {
@@ -106,9 +108,9 @@ export const LiveUsersWidget = ({ message }) => {
 
 ## API Key
 
-You can generate your API key from the [Live Track Dashboard](url)LiveTrack dashboard. Visit the provided link to create an account and generate your key. Replace `"your-api-key"` in the examples above with the key from your dashboard.
+You can generate your API key from the [LiveTrack Dashboard](https://livetrack.vercel.app/). Visit the provided link to create an account and generate your key. Replace `"your-api-key"` in the examples above with the key from your dashboard.
 
-## After successful setup
+## After Successful Setup
 
 Now, when users visit your website, they will be able to see live user activity displayed via the `LiveUsersWidget` component.
 
@@ -139,4 +141,4 @@ Now, when users visit your website, they will be able to see live user activity 
 
 ## GitHub
 
-Visit the [LiveTrack Github Repository](https://github.com/Kunal-jaiswal972/LiveTrack/) for more details, bug reports, and contributions.
+Visit the [LiveTrack GitHub Repository](https://github.com/Kunal-jaiswal972/LiveTrack) for more details, bug reports, and contributions.

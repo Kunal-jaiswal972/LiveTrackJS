@@ -41,7 +41,7 @@ To integrate LiveTrack into your React app, wrap your application with the `Live
 
 ```jsx
 import { LiveTrackProvider } from "livetrack";
-import LiveUsersWidget from "./components";
+import { LiveUsersWidget } from "./components/LiveUsersWidget";
 
 function App() {
   return (
@@ -67,7 +67,7 @@ npm install lucide-react
 ```
 
 ```jsx
-import useLiveUsers from "livetrack";
+import { useLiveUsers } from "livetrack";
 import { BadgeCheck, LoaderCircle } from "lucide-react";
 
 export const LiveUsersWidget = ({ message }) => {
