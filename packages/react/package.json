@@ -1,6 +1,6 @@
 {
-  "name": "livetrack",
-  "version": "1.0.4",
+  "name": "livetrack-react",
+  "version": "1.0.10",
   "description": "React client package to integrate LiveTrack in our react websites",
   "type": "module",
   "main": "dist/index.umd.js",
@@ -56,7 +56,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kunal-jaiswal972/LiveTrack"
+    "url": "https://github.com/Kunal-jaiswal972/LiveTrackJS"
   },
-  "homepage": "https://github.com/Kunal-jaiswal972/LiveTrack#README.md"
+  "homepage": "https://github.com/Kunal-jaiswal972/LiveTrackJS#README.md"
 }
