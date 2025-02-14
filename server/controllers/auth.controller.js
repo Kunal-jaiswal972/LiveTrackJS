@@ -1,7 +1,10 @@
 import bcryptjs from "bcryptjs";
 import crypto from "crypto";
 
-import { cookieOptions, generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
+import {
+  cookieOptions,
+  generateTokenAndSetCookie,
+} from "../utils/generateTokenAndSetCookie.js";
 import {
   sendPasswordResetEmail,
   sendResetSuccessEmail,

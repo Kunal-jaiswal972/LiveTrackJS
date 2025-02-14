@@ -11,9 +11,6 @@ import PublicLayout from "@/layouts/PublicLayout";
 import { useAuthStore } from "@/store/authStore";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 
-// import { LiveTrackProvider } from "livetrack-react";
-// import "livetrack-react/style.css";
-
 import SignUpPage from "@/pages/SignUpPage";
 import LoginPage from "@/pages/LoginPage";
 import EmailVerificationPage from "@/pages/EmailVerificationPage";
@@ -25,6 +22,7 @@ import AccountPage from "@/pages/AccountPage";
 import LandingPage from "@/pages/LandingPage";
 import AnalyticsPage from "@/pages/AnalyticsPage";
 import BillingsPage from "@/pages/BillingPage";
+import DocsPage from "@/pages/DocsPage";
 
 function App() {
   const { isCheckingAuth, checkAuth } = useAuthStore();
@@ -37,7 +35,6 @@ function App() {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      {/* <LiveTrackProvider apiKey={import.meta.env.VITE_LIVETRACK_KEY}> */}
         <Routes>
           <Route path="/" element={<PublicLayout />}>
             <Route index element={<LandingPage />} />
@@ -83,11 +80,11 @@ function App() {
             <Route path="account" element={<AccountPage />} />
             <Route path="analytics/:id" element={<AnalyticsPage />} />
             <Route path="billings" element={<BillingsPage />} />
+            <Route path="docs" element={<DocsPage />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      {/* </LiveTrackProvider> */}
       <Toaster />
     </ThemeProvider>
   );

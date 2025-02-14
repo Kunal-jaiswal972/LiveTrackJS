@@ -4,7 +4,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 export const cookieOptions = {
   httpOnly: true,
-  secure: isProduction,
+  secure: true,
   sameSite: "none",
   // domain: isProduction ? process.env.DASHBOARD_CLIENT_URL : undefined,
   path: "/",

@@ -100,9 +100,9 @@ export function getMenuList(pathname) {
           submenus: [],
         },
         {
-          href: "#",
+          href: "/dashboard/docs",
           label: "Documentation",
-          active: pathname.includes("#"),
+          active: pathname.includes("/dashboard/docs"),
           icon: ScrollText,
           submenus: [],
         },
@@ -135,3 +135,8 @@ export const plans = [
     type: "premium",
   },
 ];
+
+export const cooldownBanner = {
+  time: 7000,
+  msg: "Server is hosted on free render plan which may take some time for first time loading!!",
+};

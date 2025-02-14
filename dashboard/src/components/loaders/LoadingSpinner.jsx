@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { cooldownBanner } from "@/constants/constants";
 
 const LoadingSpinner = () => {
   const [showAlert, setShowAlert] = useState(false);
@@ -9,7 +10,7 @@ const LoadingSpinner = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowAlert(true);
-    }, 15000);
+    }, cooldownBanner.time);
 
     return () => clearTimeout(timer);
   }, []);
@@ -31,10 +32,7 @@ const LoadingSpinner = () => {
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>Please wait a little longer</AlertTitle>
-            <AlertDescription>
-              Server is hosted on free render plan which may take some time for
-              first time loading!!
-            </AlertDescription>
+            <AlertDescription>{cooldownBanner.msg}</AlertDescription>
           </Alert>
         </motion.div>
       )}

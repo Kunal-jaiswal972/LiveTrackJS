@@ -6,7 +6,7 @@ export const LiveTrackProvider = ({ apiKey, children }) => {
   const env = import.meta.env.MODE;
   const serverUrl =
     env === "production"
-      ? import.meta.env.VITE_SERVER_URL
+      ? "https://livetrack-api.onrender.com"
       : "http://localhost:3000";
 
   const value = useMemo(() => ({ serverUrl, apiKey }), [serverUrl, apiKey]);
