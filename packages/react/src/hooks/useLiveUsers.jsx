@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLiveTrack } from "../context/LiveTrackContext";
 import createSocket from "../utils/socket";
 
-const useLiveUsers = () => {
+export const useLiveUsers = () => {
   const { apiKey, serverUrl } = useLiveTrack();
   const host = window.location.hostname;
 
@@ -39,4 +39,4 @@ const useLiveUsers = () => {
   return { liveUsers, isLoading, error };
 };
 
-export default useLiveUsers;
+

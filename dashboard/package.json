@@ -7,7 +7,8 @@
     "dev": "vite --port 5174",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "gen-env": "npx gen-env-types .env -e ."
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.0",
@@ -17,17 +18,20 @@
     "@radix-ui/react-scroll-area": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
+    "@tailwindcss/typography": "^0.5.15",
     "axios": "^1.7.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.21",
-    "livetrack-react": "^1.0.8",
     "lucide-react": "^0.424.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
+    "react-markdown": "^9.0.1",
     "react-router-dom": "^6.26.0",
+    "react-syntax-highlighter": "^15.6.1",
     "recharts": "^2.12.7",
+    "remark-gfm": "^4.0.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "zustand": "^4.5.4"
