@@ -7,7 +7,7 @@ export function Footer() {
         <p className="text-xs md:text-sm leading-loose text-left">
           The source code is available on{" "}
           <Link
-            to="https://github.com/Kunal-jaiswal972/LiveTrack"
+            to="https://github.com/Kunal-jaiswal972/LiveTrackJS"
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium underline underline-offset-4"
