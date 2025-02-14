@@ -27,10 +27,10 @@ Follow these steps to set up your React application:
 
    Configure Tailwind in your project by updating the `tailwind.config.js` and adding the Tailwind directives to your CSS file.
 
-3. Install LiveTrack React:
+3. Install [LiveTrack NPM Package](https://www.npmjs.com/package/livetrack-react):
 
    ```bash
-   npm install livetrack
+   npm i livetrack-react
    ```
 
 ## Usage
@@ -40,7 +40,7 @@ Follow these steps to set up your React application:
 To integrate LiveTrack into your React app, wrap your application with the `LiveTrackProvider` and include the `LiveUsersWidget` component:
 
 ```jsx
-import { LiveTrackProvider } from "livetrack";
+import { LiveTrackProvider } from "livetrack-react";
 import { LiveUsersWidget } from "./components/LiveUsersWidget";
 
 function App() {
@@ -67,7 +67,7 @@ npm install lucide-react
 ```
 
 ```jsx
-import { useLiveUsers } from "livetrack";
+import { useLiveUsers } from "livetrack-react";
 import { BadgeCheck, LoaderCircle } from "lucide-react";
 
 export const LiveUsersWidget = ({ message }) => {
@@ -108,7 +108,7 @@ export const LiveUsersWidget = ({ message }) => {
 
 ## API Key
 
-You can generate your API key from the [LiveTrack Dashboard](https://livetrack.vercel.app/). Visit the provided link to create an account and generate your key. Replace `"your-api-key"` in the examples above with the key from your dashboard.
+You can generate your API key from the [LiveTrack Dashboard](https://live-track-js.vercel.app). Visit the provided link to create an account and generate your key. Replace `"your-api-key"` in the examples above with the key from your dashboard.
 
 ## After Successful Setup
 
@@ -141,4 +141,4 @@ Now, when users visit your website, they will be able to see live user activity 
 
 ## GitHub
 
-Visit the [LiveTrack GitHub Repository](https://github.com/Kunal-jaiswal972/LiveTrack) for more details, bug reports, and contributions.
+Visit the [LiveTrack GitHub Repository](https://github.com/Kunal-jaiswal972/LiveTrackJS) for more details, bug reports, and contributions.
